@@ -1,3 +1,50 @@
+# --- Godot 4 core ---
+
 # Godot 4+ specific ignores
 .godot/
-/android/
+.nomedia
+.android
+
+# Godot-specific ignores
+.import/
+export.cfg
+export_presets.cfg
+export_credentials.cfg
+
+# Imported translations (auto-generated from CSV)
+*.translation
+
+# Mono / C# (if you’re not using C#, you can still keep this)
+.mono/
+data_*/
+mono_crash.*.json
+
+# Optional: build/export folders (if you export builds into repo dir)
+exports/
+Exports/
+
+# --- OS junk ---
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+._*
+.Spotlight-V100
+.Trashes
+
+# Windows
+Thumbs.db
+Desktop.ini
+
+# --- IDE/editor ---
+
+.vscode/
+.idea/
+*.code-workspace
+
+# --- Misc cache/temp ---
+
+*.log
+*.tmp
