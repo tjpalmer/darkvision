@@ -139,10 +139,13 @@ func _choose_enemy() -> void:
 	# Spawn enemy.
 	var enemy_scene := ENEMIES.pick_random() as PackedScene
 	current_enemy = enemy_scene.instantiate() as Enemy
-	current_enemy.scale = Vector2(5, 5)
+	current_enemy.scale = Vector2.ONE * enemy_frame_scale
 	var pov_size := _animated_sprite_size(pov_sprite)
 	current_enemy.position = pov_size * current_enemy.start_pos
 	add_child(current_enemy)
+
+
+const enemy_frame_scale := 0.625
 
 
 func _animated_sprite_size(sprite: AnimatedSprite2D) -> Vector2:
@@ -152,9 +155,15 @@ func _animated_sprite_size(sprite: AnimatedSprite2D) -> Vector2:
 	).get_size() * sprite.scale
 
 
-# func _on_animated_sprite_2d_frame_changed():
-#     var current_frame = $AnimatedSprite2D.frame
-#     print("Now on frame: ", current_frame)
+func _on_pov_sprite_frame_changed() -> void:
+	if current_enemy == null:
+		return
+	# Scale enemy.
+	var frame := pov_sprite.frame
+	if frame == 0:
+		frame = 8
+	var enemy_scale := enemy_frame_scale * frame
+	current_enemy.scale = Vector2.ONE * enemy_scale
 
 
 func _on_pov_sprite_animation_finished() -> void:

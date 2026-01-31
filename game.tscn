@@ -577,3 +577,4 @@ scale = Vector2(1.5731708, 1.7757475)
 texture = ExtResource("12_215e1")
 
 [connection signal="animation_finished" from="PovSprite" to="." method="_on_pov_sprite_animation_finished"]
+[connection signal="frame_changed" from="PovSprite" to="." method="_on_pov_sprite_frame_changed"]
