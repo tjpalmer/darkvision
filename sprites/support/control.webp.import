@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cv0ddplscxmto"
-path="res://.godot/imported/arrows.webp-f95a5a3855437c69305293db88ec4988.ctex"
+uid="uid://botbiva44al2y"
+path="res://.godot/imported/control.webp-1633c9f6188b3454f3af83668222bda2.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/support/arrows.webp"
-dest_files=["res://.godot/imported/arrows.webp-f95a5a3855437c69305293db88ec4988.ctex"]
+source_file="res://sprites/support/control.webp"
+dest_files=["res://.godot/imported/control.webp-1633c9f6188b3454f3af83668222bda2.ctex"]
 
 [params]
 

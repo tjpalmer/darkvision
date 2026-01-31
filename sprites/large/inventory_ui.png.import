@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ks37ykns8t11"
-path="res://.godot/imported/move_health_UI.png-ee05864184992e3984fb47ffe0b40ea3.ctex"
+uid="uid://baatnjkn0ndeb"
+path="res://.godot/imported/inventory_ui.png-3b7ee350600a71f26c7cb932a4cc6b54.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/move_health_UI.png"
-dest_files=["res://.godot/imported/move_health_UI.png-ee05864184992e3984fb47ffe0b40ea3.ctex"]
+source_file="res://sprites/large/inventory_ui.png"
+dest_files=["res://.godot/imported/inventory_ui.png-3b7ee350600a71f26c7cb932a4cc6b54.ctex"]
 
 [params]
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://baatnjkn0ndeb"
-path="res://.godot/imported/inventory_UI.png-3dfb3e8467000aa7d8f8e034ac8be9eb.ctex"
+uid="uid://bor4ui67j470n"
+path="res://.godot/imported/eye_battle.webp-93eaf4ee208a981f0a9928dc630d068b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/inventory_UI.png"
-dest_files=["res://.godot/imported/inventory_UI.png-3dfb3e8467000aa7d8f8e034ac8be9eb.ctex"]
+source_file="res://sprites/enemies/eye_battle.webp"
+dest_files=["res://.godot/imported/eye_battle.webp-93eaf4ee208a981f0a9928dc630d068b.ctex"]
 
 [params]
 

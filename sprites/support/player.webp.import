@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dac4p8erluqq7"
-path="res://.godot/imported/darkvision_logo.webp-87e31dac25a9c759d76016cbb38eaf72.ctex"
+uid="uid://bkdmi6iv7cqbq"
+path="res://.godot/imported/player.webp-1f5fd796c9a7fb7e14c2fa1f84d1aded.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/darkvision_logo.webp"
-dest_files=["res://.godot/imported/darkvision_logo.webp-87e31dac25a9c759d76016cbb38eaf72.ctex"]
+source_file="res://sprites/support/player.webp"
+dest_files=["res://.godot/imported/player.webp-1f5fd796c9a7fb7e14c2fa1f84d1aded.ctex"]
 
 [params]
 

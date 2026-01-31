@@ -9,9 +9,9 @@
 [ext_resource type="Texture2D" uid="uid://cpk2xqwtm36sv" path="res://sprites/pov/s_pov_forward_to_right_B_strip8.png" id="7_7sc4i"]
 [ext_resource type="Texture2D" uid="uid://nvlf4e5g4lt1" path="res://sprites/pov/s_pov_left_to_forward_strip8.png" id="8_80cx4"]
 [ext_resource type="Texture2D" uid="uid://ck82w8ir2wjkt" path="res://sprites/pov/s_pov_right_to_forward_strip8.png" id="9_e8heu"]
-[ext_resource type="Texture2D" uid="uid://dac4p8erluqq7" path="res://sprites/darkvision_logo.webp" id="10_iotsf"]
-[ext_resource type="Texture2D" uid="uid://baatnjkn0ndeb" path="res://sprites/inventory_UI.png" id="11_lc2xo"]
-[ext_resource type="Texture2D" uid="uid://ks37ykns8t11" path="res://sprites/move_health_UI.png" id="12_215e1"]
+[ext_resource type="Texture2D" uid="uid://dac4p8erluqq7" path="res://sprites/large/darkvision_logo.webp" id="10_iotsf"]
+[ext_resource type="Texture2D" uid="uid://baatnjkn0ndeb" path="res://sprites/large/inventory_ui.png" id="11_lc2xo"]
+[ext_resource type="Texture2D" uid="uid://ks37ykns8t11" path="res://sprites/large/move_health_ui.png" id="12_215e1"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_rvswv"]
 atlas = ExtResource("2_hve3p")
