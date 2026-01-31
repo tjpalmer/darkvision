@@ -13,6 +13,10 @@ var attack_amplitude:float = 32.0
 var attack_speed: float = 7.0
 var time_between_decisions: float = 4.0 # in seconds
 
+
+var attack_damage: float = 2.0
+var health: float = 10.0
+
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var battle_decision_timer: Timer = $BattleDecisionTimer
 
@@ -93,3 +97,14 @@ func _update_dead(_delta: float) -> void:
 func _on_battle_decision_timer_timeout() -> void:
 	#print("ENEMY MAKING DECISION")
 	_enter_state(State.ATTACK)
+	
+	
+	
+func take_damage(value: float):
+	health -= value
+	
+func set_health(value: float):
+	health = value
+	
+func set_attack_damage(value: float):
+	attack_damage = value

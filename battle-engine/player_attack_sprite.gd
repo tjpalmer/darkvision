@@ -5,9 +5,6 @@ var _elapsed := 0.0
 var _start_scale := Vector2.ONE
 var _starting_position: Vector2 = position
 
-var attack_damage: float = 2.0
-var health: float = 10.0
-
 
 func _ready():
 	_start_scale = scale
@@ -55,12 +52,3 @@ func _process(delta: float) -> void:
 func _on_animation_finished() -> void:
 	modulate.a = 0
 	stop()
-	
-func take_damage(value: float):
-	health -= value
-	
-func set_health(value: float):
-	health = value
-	
-func set_attack_damage(value: float):
-	attack_damage = value
