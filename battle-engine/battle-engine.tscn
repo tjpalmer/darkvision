@@ -120,7 +120,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"defend",
-"speed": 5.0
+"speed": 1.0
 }]
 
 [node name="BattleEngine" type="Node2D" unique_id=1649322611]
@@ -162,7 +162,7 @@ modulate = Color(1, 1, 1, 0.78039217)
 position = Vector2(480, 224)
 scale = Vector2(6, 6)
 sprite_frames = SubResource("SpriteFrames_hvo25")
-animation = &"attack"
+animation = &"defend"
 script = ExtResource("6_ct57k")
 
 [connection signal="animation_finished" from="PlayerAttackSprite" to="PlayerAttackSprite" method="_on_animation_finished"]
