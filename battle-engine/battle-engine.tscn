@@ -3,6 +3,9 @@
 [ext_resource type="Script" uid="uid://vinwih6qwgcw" path="res://battle-engine/battle_engine.gd" id="1_8pl44"]
 [ext_resource type="PackedScene" uid="uid://dhims8tyq2wja" path="res://battle-engine/enemy.tscn" id="1_x7rji"]
 [ext_resource type="Script" uid="uid://desyp6laandb" path="res://battle-engine/attack-button.gd" id="2_baey7"]
+[ext_resource type="Texture2D" uid="uid://7k5cdui1g1sq" path="res://battle-engine/assets/purple-attack-anim.png" id="4_18kkk"]
+[ext_resource type="Texture2D" uid="uid://b0b30fqweqifj" path="res://battle-engine/assets/temp_shield-Transparent.png" id="5_7xprn"]
+[ext_resource type="Script" uid="uid://dl4o26mtevkpc" path="res://battle-engine/player_attack_sprite.gd" id="6_ct57k"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pv81d"]
 bg_color = Color(0, 0, 0, 1)
@@ -21,6 +24,104 @@ border_width_bottom = 2
 border_color = Color(1, 1, 1, 1)
 
 [sub_resource type="ImageTexture" id="ImageTexture_8pl44"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i48og"]
+atlas = ExtResource("4_18kkk")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7xprn"]
+atlas = ExtResource("4_18kkk")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ct57k"]
+atlas = ExtResource("4_18kkk")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vvyhw"]
+atlas = ExtResource("4_18kkk")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qvgsq"]
+atlas = ExtResource("4_18kkk")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jwwkx"]
+atlas = ExtResource("4_18kkk")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d3ap1"]
+atlas = ExtResource("4_18kkk")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h1qga"]
+atlas = ExtResource("4_18kkk")
+region = Rect2(32, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_drguc"]
+atlas = ExtResource("4_18kkk")
+region = Rect2(64, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2u0k4"]
+atlas = ExtResource("4_18kkk")
+region = Rect2(96, 32, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_hvo25"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i48og")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7xprn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ct57k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vvyhw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qvgsq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jwwkx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d3ap1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h1qga")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_drguc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2u0k4")
+}],
+"loop": false,
+"name": &"attack",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_7xprn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_7xprn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_7xprn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_7xprn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_7xprn")
+}],
+"loop": false,
+"name": &"defend",
+"speed": 5.0
+}]
 
 [node name="BattleEngine" type="Node2D" unique_id=1649322611]
 script = ExtResource("1_8pl44")
@@ -55,3 +156,13 @@ theme_override_styles/focus = SubResource("StyleBoxFlat_8pl44")
 text = "ATTACK!"
 icon = SubResource("ImageTexture_8pl44")
 script = ExtResource("2_baey7")
+
+[node name="PlayerAttackSprite" type="AnimatedSprite2D" parent="." unique_id=199110083]
+modulate = Color(1, 1, 1, 0.78039217)
+position = Vector2(480, 224)
+scale = Vector2(6, 6)
+sprite_frames = SubResource("SpriteFrames_hvo25")
+animation = &"attack"
+script = ExtResource("6_ct57k")
+
+[connection signal="animation_finished" from="PlayerAttackSprite" to="PlayerAttackSprite" method="_on_animation_finished"]

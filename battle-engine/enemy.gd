@@ -45,23 +45,23 @@ func kill() -> void:
 
 func _enter_state(new_state: State) -> void:
 	if state == new_state:
-		print("TRYING TO ENTER SAME STATE AGAIN " + State.keys()[new_state])
+		#print("TRYING TO ENTER SAME STATE AGAIN " + State.keys()[new_state])
 		return
 
 	state = new_state
 
 	match state:
 		State.IDLE:
-			print("ENEMY GOING IDLE")
+			#print("ENEMY GOING IDLE")
 			battle_decision_timer.start()
 			sprite.play("idle")
 		State.ATTACK:
 			sprite.set_amplitude(attack_amplitude)
 			sprite.set_speed(attack_speed)
-			print("ENEMY GOING ATTACK")
+			#print("ENEMY GOING ATTACK")
 			sprite.play("attack")
 		State.DEAD:
-			print("ENEMY GOING DEAD")
+			#print("ENEMY GOING DEAD")
 			sprite.play("dead")
 			# Optional: disable collisions / logic here
 
@@ -76,7 +76,7 @@ func _update_attack(_delta: float) -> void:
 	# Make sure the AnimatedSprite2D's "attack" animation is non-looping.
 	if not sprite.is_playing():
 		# here damage the player
-		print("DAMAGE TO PLAYER")
+		#print("DAMAGE TO PLAYER")
 		sprite.reset_amplitude()
 		sprite.reset_speed()
 		_enter_state(State.IDLE)
@@ -84,12 +84,12 @@ func _update_attack(_delta: float) -> void:
 
 func _update_dead(_delta: float) -> void:
 	if not sprite.is_playing():
-		print("ENEMY REMOVING AFTER 2 SECONDS")
+		#print("ENEMY REMOVING AFTER 2 SECONDS")
 		# wait 2 seconds after dead animation plays, then remove enemy
 		await get_tree().create_timer(2.0).timeout; queue_free()
 	pass
 
 
 func _on_battle_decision_timer_timeout() -> void:
-	print("ENEMY MAKING DECISION")
+	#print("ENEMY MAKING DECISION")
 	_enter_state(State.ATTACK)
