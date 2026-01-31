@@ -27,3 +27,7 @@ func _process(_delta: float) -> void:
 		_init_battle()
 		
 		has_init = true
+
+
+func _on_enemy_damage_player(amount: int) -> void:
+	player_healthbar.damage(amount)

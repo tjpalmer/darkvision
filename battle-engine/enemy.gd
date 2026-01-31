@@ -13,8 +13,9 @@ var attack_amplitude:float = 32.0
 var attack_speed: float = 7.0
 var time_between_decisions: float = 4.0 # in seconds
 
+signal damage_player(amount: int)
 
-var attack_damage: float = 2.0
+var attack_damage: float = 8.0
 var health: float = 10.0
 
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
@@ -79,7 +80,7 @@ func _update_attack(_delta: float) -> void:
 	# If attack is a one-shot animation, when it finishes return to idle.
 	# Make sure the AnimatedSprite2D's "attack" animation is non-looping.
 	if not sprite.is_playing():
-		# here damage the player
+		damage_player.emit(attack_damage)
 		#print("DAMAGE TO PLAYER")
 		sprite.reset_amplitude()
 		sprite.reset_speed()
