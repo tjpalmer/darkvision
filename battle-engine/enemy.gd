@@ -9,8 +9,8 @@ enum State {
 }
 
 var state: State = State.INITIAL
-var attack_amplitude:float = 48.0
-var attack_speed: float = 8.0
+var attack_amplitude:float = 32.0
+var attack_speed: float = 7.0
 var time_between_decisions: float = 4.0 # in seconds
 
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
@@ -66,12 +66,12 @@ func _enter_state(new_state: State) -> void:
 			# Optional: disable collisions / logic here
 
 
-func _update_idle(delta: float) -> void:
+func _update_idle(_delta: float) -> void:
 	# For now, nothing special; you can add patrol logic here later.
 	pass
 
 
-func _update_attack(delta: float) -> void:
+func _update_attack(_delta: float) -> void:
 	# If attack is a one-shot animation, when it finishes return to idle.
 	# Make sure the AnimatedSprite2D's "attack" animation is non-looping.
 	if not sprite.is_playing():
@@ -82,7 +82,7 @@ func _update_attack(delta: float) -> void:
 		_enter_state(State.IDLE)
 
 
-func _update_dead(delta: float) -> void:
+func _update_dead(_delta: float) -> void:
 	if not sprite.is_playing():
 		print("ENEMY REMOVING AFTER 2 SECONDS")
 		# wait 2 seconds after dead animation plays, then remove enemy
