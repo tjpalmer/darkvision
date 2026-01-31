@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://den8fjg8e55w6"]
+
+[ext_resource type="PackedScene" uid="uid://dhims8tyq2wja" path="res://battle-engine/enemy.tscn" id="1_x7rji"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pv81d"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+
+[node name="BattleEngine" type="Node2D" unique_id=1649322611]
+
+[node name="Panel" type="Panel" parent="." unique_id=139991779]
+offset_right = 960.0
+offset_bottom = 448.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_pv81d")
+
+[node name="Enemy" parent="." unique_id=179599551 instance=ExtResource("1_x7rji")]
+position = Vector2(448, 192)
