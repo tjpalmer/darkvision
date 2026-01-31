@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://oss6e52nl3i3"]
+
+[ext_resource type="Script" uid="uid://kt2p234piug0" path="res://scenes/enemy.gd" id="1_4h4y0"]
+[ext_resource type="Shader" uid="uid://dlo20x06tncf7" path="res://scenes/floater.gdshader" id="2_b58ev"]
+[ext_resource type="Texture2D" uid="uid://cb3vik5j3h17t" path="res://sprites/enemies/slime.webp" id="3_4h4y0"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_817ua"]
+shader = ExtResource("2_b58ev")
+shader_parameter/width = 2.0
+shader_parameter/threshold = 0.5
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_kyxgt"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_4h4y0")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Slime" type="Node2D" unique_id=1198387090]
+script = ExtResource("1_4h4y0")
+metadata/_custom_type_script = "uid://kt2p234piug0"
+
+[node name="Sprite" type="AnimatedSprite2D" parent="." unique_id=1740359678]
+material = SubResource("ShaderMaterial_817ua")
+sprite_frames = SubResource("SpriteFrames_kyxgt")

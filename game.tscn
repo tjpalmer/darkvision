@@ -12,6 +12,9 @@
 [ext_resource type="Texture2D" uid="uid://dac4p8erluqq7" path="res://sprites/large/darkvision_logo.webp" id="10_iotsf"]
 [ext_resource type="Texture2D" uid="uid://baatnjkn0ndeb" path="res://sprites/large/inventory_ui.png" id="11_lc2xo"]
 [ext_resource type="Texture2D" uid="uid://ks37ykns8t11" path="res://sprites/large/move_health_ui.png" id="12_215e1"]
+[ext_resource type="PackedScene" uid="uid://u7yginhubc0" path="res://scenes/enemies/eye.tscn" id="13_lc2xo"]
+[ext_resource type="PackedScene" uid="uid://bt8fikqiqfr2t" path="res://scenes/enemies/rat.tscn" id="14_215e1"]
+[ext_resource type="PackedScene" uid="uid://oss6e52nl3i3" path="res://scenes/enemies/slime.tscn" id="15_7sc4i"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_rvswv"]
 atlas = ExtResource("2_hve3p")
@@ -575,5 +578,21 @@ texture = ExtResource("11_lc2xo")
 position = Vector2(575, 268.75)
 scale = Vector2(1.5731708, 1.7757475)
 texture = ExtResource("12_215e1")
+
+[node name="Eye" parent="." unique_id=1198387090 instance=ExtResource("13_lc2xo")]
+position = Vector2(80.000015, 184)
+scale = Vector2(5, 5)
+
+[node name="Rat" parent="." unique_id=812035283 instance=ExtResource("14_215e1")]
+position = Vector2(168, 253)
+scale = Vector2(5, 5)
+
+[node name="Rat2" parent="." unique_id=1506567835 instance=ExtResource("14_215e1")]
+position = Vector2(384, 112)
+scale = Vector2(5, 5)
+
+[node name="Slime" parent="." unique_id=749546977 instance=ExtResource("15_7sc4i")]
+position = Vector2(296, 234.00002)
+scale = Vector2(5, 5)
 
 [connection signal="animation_finished" from="PovSprite" to="." method="_on_pov_sprite_animation_finished"]
