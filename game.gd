@@ -24,8 +24,15 @@ const SPRITE_ANIMS := [
 	"pov_forward_to_exit"       # 7
 ]
 
+const ENEMIES: Array[PackedScene] = [
+	preload("res://scenes/enemies/eye.tscn"),
+	preload("res://scenes/enemies/rat.tscn"),
+	preload("res://scenes/enemies/slime.tscn"),
+]
+
 var game_won: bool = false
 var current_cell: int = 0
+var current_enemy: Enemy = null
 var cell_array: Array[int] = []
 
 var is_moving: bool = false
@@ -51,6 +58,7 @@ func _stop_at_next_cell() -> void:
 	pov_sprite.stop()
 	is_moving = false
 
+
 ####################
 # BEGIN MOVEMENT SECTION #
 ####################
@@ -61,7 +69,7 @@ func _try_step_forward() -> void:
 	current_action = "forward"
 	is_moving = true
 	# Use the precomputed path for forward:
-	pov_sprite.play()
+	_advance()
 
 
 func _do_turn_left() -> void:
@@ -76,7 +84,7 @@ func _do_turn_left() -> void:
 	# Just play the left-turn A animation directly.
 	pov_sprite.animation = SPRITE_ANIMS[CellSpriteId.FORWARD_TO_LEFT_A]
 	pov_sprite.frame = 0
-	pov_sprite.play()
+	_advance()
 
 	
 func _do_turn_right() -> void:
@@ -91,7 +99,7 @@ func _do_turn_right() -> void:
 	# Just play the right-turn A animation directly.
 	pov_sprite.animation = SPRITE_ANIMS[CellSpriteId.FORWARD_TO_RIGHT_A]
 	pov_sprite.frame = 0
-	pov_sprite.play()
+	_advance()
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -107,7 +115,47 @@ func _unhandled_input(event: InputEvent) -> void:
 ####################
 # END MOVEMENT SECTION #
 ####################
-		
+
+
+func _advance():
+	pov_sprite.play()
+	_choose_enemy()
+
+
+func _choose_enemy() -> void:
+	# Remove current. TODO Already dead before we get here?
+	if current_enemy != null:
+		remove_child(current_enemy)
+		current_enemy.queue_free()
+		current_enemy = null
+	# Spawn enemies only when non-congested.
+	match pov_sprite.animation:
+		"pov_forward_to_forward", \
+		"pov_forward_to_left_A", \
+		"pov_forward_to_right_A":
+			pass
+		_:
+			return
+	# Spawn enemy.
+	var enemy_scene := ENEMIES.pick_random() as PackedScene
+	current_enemy = enemy_scene.instantiate() as Enemy
+	current_enemy.scale = Vector2(5, 5)
+	var pov_size := _animated_sprite_size(pov_sprite)
+	current_enemy.position = pov_size * current_enemy.start_pos
+	add_child(current_enemy)
+
+
+func _animated_sprite_size(sprite: AnimatedSprite2D) -> Vector2:
+	return sprite.sprite_frames.get_frame_texture(
+		sprite.animation,
+		sprite.frame,
+	).get_size() * sprite.scale
+
+
+# func _on_animated_sprite_2d_frame_changed():
+#     var current_frame = $AnimatedSprite2D.frame
+#     print("Now on frame: ", current_frame)
+
 
 func _on_pov_sprite_animation_finished() -> void:
 	if not is_moving:
@@ -121,7 +169,7 @@ func _on_pov_sprite_animation_finished() -> void:
 			else:
 				var exit_anim := SPRITE_ANIMS[CellSpriteId.FORWARD_TO_EXIT]
 				pov_sprite.animation = exit_anim
-				pov_sprite.play()
+				_advance()
 				#pov_sprite.stop()
 				game_won = true
 				is_moving = false
