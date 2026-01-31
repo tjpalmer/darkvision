@@ -1,4 +1,4 @@
-extends Node2D
+extends ColorRect
 
 const CELL_NUM := 30
 

@@ -546,7 +546,13 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="Game" type="Node2D" unique_id=1791142785]
+[node name="Game" type="ColorRect" unique_id=163400395]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
 script = ExtResource("1_vef74")
 
 [node name="PovSprite" type="AnimatedSprite2D" parent="." unique_id=693293025]
