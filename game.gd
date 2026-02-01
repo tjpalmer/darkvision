@@ -139,7 +139,10 @@ func _choose_enemy() -> void:
 	# Spawn enemy.
 	var enemy_scene := ENEMIES.pick_random() as PackedScene
 	current_enemy = enemy_scene.instantiate() as Enemy
-	# await get_tree().process_frame
+	# Start at almost first frame position.
+	# This is complicated by starting at frame 0 of our current animation, but
+	# going through frame zero of the next.
+	# TODO Track when the anim changes for 9 steps total of enemy animation?
 	_update_enemy_transform(0.5)
 	add_child(current_enemy)
 
