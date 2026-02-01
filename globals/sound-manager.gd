@@ -25,6 +25,8 @@ var sounds: Dictionary = {  # "hit": preload("res://hit.ogg"), etc.
 	"whoosh_attack": preload("res://audio/sfx/woosh-attack.wav"),
 	"block_clang": preload("res://audio/sfx/block-clang.wav"),
 	"player_hurt": preload("res://audio/sfx/player-hurt.wav"),
+	"lich_intro_bgm": preload("res://audio/bgm/lich-intro-bgm.ogg"),
+	"lich_loop_bgm": preload("res://audio/bgm/lich-loop-bgm.ogg"),
 } 
 
 var channels: Array[AudioStreamPlayer] = []
@@ -32,10 +34,10 @@ var channels: Array[AudioStreamPlayer] = []
 
 func log():
 	pass
-	for c in channels:
-		print(c, " playing=", c.playing, " vol=", c.volume_db)
+	#for c in channels:
+		#print(c, " playing=", c.playing, " vol=", c.volume_db)
 
-	print("-------")
+	#print("-------")
 	
 	
 func _ready() -> void:
@@ -64,14 +66,14 @@ func play(sound_name: StringName, volume_db: float = 0.0, loop: bool = false):
 		if not c.playing:
 			c.stream = stream
 			c.volume_db = volume_db  # <- hard reset
-			print("PLAY", sound_name, "on", c, "vol=", c.volume_db)
+			#print("PLAY", sound_name, "on", c, "vol=", c.volume_db)
 			c.play()
 			return c
 
 	var first := channels[0]
 	first.stream = stream
 	first.volume_db = volume_db  # <- hard reset
-	print("PLAY", sound_name, "on (steal)", first, "vol=", first.volume_db)
+	#print("PLAY", sound_name, "on (steal)", first, "vol=", first.volume_db)
 	first.play()
 	return first
 
@@ -105,11 +107,11 @@ func fade_out_and_stop(sound_name: StringName, duration: float = 0.5) -> void:
 
 	for c in channels:
 		if c.playing and c.stream == stream:
-			print("FADE", sound_name, "on", c, "start vol=", c.volume_db)
+			#print("FADE", sound_name, "on", c, "start vol=", c.volume_db)
 			var chan := c
 			var tween := create_tween()
 			tween.tween_property(chan, "volume_db", -80.0, duration)
 			tween.tween_callback(func():
-				print("FADE DONE on", chan, "vol=", chan.volume_db, "playing=", chan.playing)
+				#print("FADE DONE on", chan, "vol=", chan.volume_db, "playing=", chan.playing)
 				if chan.playing:
 					chan.stop())

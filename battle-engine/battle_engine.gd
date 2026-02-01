@@ -25,11 +25,13 @@ var victory_timer_count: int = 0
 var you_died_timer_count: int = 0
 var player_is_dead: bool = false
 var is_final_boss_battle: bool = false
+var did_final_boss_init: bool = false # hacky bool weee
 
 var which_bgm_to_play = 0 # 0 for 1st bgm, 1 for 2nd bgm currently swapping back and forth every combat
 #var should_play_bgm = false
 
 signal battle_ended
+signal battle_ended_with_player_death
 
 var enemy: Node2D
 
@@ -38,15 +40,16 @@ func _ready() -> void:
 	_end_battle()
 
 func _init_battle(is_final_boss: bool = false):
+	print("is this final boss init? " + str(is_final_boss))
 	if !is_final_boss:
 		enemy = common_enemy
 	else:
 		print("Ffight the lich!")
 		common_enemy.queue_free()
 		enemy = lich_scene.instantiate()
+		add_child(enemy)
 	
 	var center := get_viewport_rect().size / 2.0
-	enemy.position.x = center.x
 	player_sprite.position.x = center.x
 	is_final_boss_battle = is_final_boss
 	attack_button.disabled = false
@@ -69,14 +72,20 @@ func _init_battle(is_final_boss: bool = false):
 	visible = true
 	#print("enemy health set to " + str(enemy.health))
 	
-	enemy.enter_battle()
-	enemy_healthbar.set_max_health(enemy.health)
-	enemy_healthbar.set_health(enemy.health)
-	#print("player health set to " + str(PlayerStats.health))
+	if !is_final_boss and enemy != null: # this is hacky looooool
+		enemy.position.x = center.x
+		#enemy.position.y = center.y
+		enemy.enter_battle()
+		enemy_healthbar.set_max_health(enemy.health)
+		enemy_healthbar.set_health(enemy.health)
+
 	player_healthbar.set_max_health(PlayerStats.max_health)
 	player_healthbar.set_health(PlayerStats.health)
+	
+	has_init = true
 
-signal battle_ended_with_player_death
+
+
 	
 func _end_battle():
 	#print("DISABLE BATTLE PROCESS")
@@ -87,10 +96,12 @@ func _end_battle():
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
-	if !has_init:
+	#print("processing battle frame")
+	if !has_init: # currently WILL NOT RUN for final boss battle so we duping logic soz m8
 		attack_button.init()
 		_init_battle()
 		
+		#if !is_final_boss_battle:
 		if which_bgm_to_play == 0:
 			#print("Play combat bgm")
 			SoundManager.play("combat_bgm", -3.0, true)
@@ -101,8 +112,20 @@ func _process(_delta: float) -> void:
 			which_bgm_to_play = 0
 			
 		SoundManager.log()
-		
 		has_init = true
+		
+	#print ("did_final_boss_init? " + str(did_final_boss_init) + ", enemy != null? " + str(enemy != null))
+	if !did_final_boss_init and enemy != null: # hax lul
+		attack_button.init()
+		print("init final boss time")
+		SoundManager.play("lich_intro_bgm", -3.0)
+		var center := get_viewport_rect().size / 2.0
+		enemy.position.x = center.x
+		enemy.position.y = center.y
+		#enemy.enter_battle()
+		enemy_healthbar.set_max_health(enemy.health)
+		enemy_healthbar.set_health(enemy.health)
+		did_final_boss_init = true
 
 
 func _on_enemy_damage_player(amount: int) -> void:

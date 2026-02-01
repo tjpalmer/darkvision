@@ -22,6 +22,8 @@ var attack_damage: float = 9.0
 var health: float = 5.0
 var is_dead: bool = false
 
+var did_init: bool = false
+
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var battle_decision_timer: Timer = $BattleDecisionTimer
 
@@ -31,6 +33,7 @@ func _ready() -> void:
 	sprite.reset_speed()
 	battle_decision_timer.wait_time = time_between_decisions
 	_enter_state(State.IDLE)
+	did_init = true
 	
 func die():
 	sprite.set_speed(0)
@@ -39,6 +42,9 @@ func die():
 	_enter_state(State.DEAD)
 
 func _physics_process(delta: float) -> void:
+	if !did_init:
+		return
+		
 	match state:
 		State.IDLE:
 			_update_idle(delta)
@@ -77,6 +83,9 @@ func kill() -> void:
 
 
 func _enter_state(new_state: State) -> void:
+	print("enter state: " + State.keys()[new_state] )
+	if !did_init:
+		return
 	if state == new_state:
 		#print("TRYING TO ENTER SAME STATE AGAIN " + State.keys()[new_state])
 		return

@@ -1,52 +1,57 @@
 [gd_scene format=3 uid="uid://bvebno7bwgmlc"]
 
 [ext_resource type="Script" uid="uid://7trq3nfg517c" path="res://battle-engine/lich_enemy.gd" id="1_ivxw4"]
-[ext_resource type="Texture2D" uid="uid://bor4ui67j470n" path="res://sprites/enemies/eye_battle.webp" id="2_k2v0x"]
-[ext_resource type="Texture2D" uid="uid://brap0if7v0fdj" path="res://sprites/enemies/eye.webp" id="3_gxf5a"]
+[ext_resource type="Texture2D" uid="uid://el80r1w4p0sq" path="res://battle-engine/assets/lich-king/lich_king-handsup.png" id="2_gxf5a"]
+[ext_resource type="Texture2D" uid="uid://crwsnlkbrr4t3" path="res://battle-engine/assets/lich-king/lich_king-die-sheet.png" id="3_tktml"]
+[ext_resource type="Texture2D" uid="uid://vta3dlb3hkm2" path="res://battle-engine/assets/lich-king/lich_king-no-bg.png" id="4_kxuun"]
 [ext_resource type="Script" uid="uid://b1ma7arxd85rt" path="res://utils/float_effect.gd" id="4_tktml"]
+[ext_resource type="Texture2D" uid="uid://hihi38svttuq" path="res://battle-engine/assets/lich-king/lich_king-windup-sheet.png" id="5_4sjn4"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_q8b3y"]
-atlas = ExtResource("2_k2v0x")
-region = Rect2(32, 64, 32, 32)
+[sub_resource type="AtlasTexture" id="AtlasTexture_4bjrb"]
+atlas = ExtResource("3_tktml")
+region = Rect2(0, 0, 192, 192)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ibvch"]
-atlas = ExtResource("2_k2v0x")
-region = Rect2(0, 64, 32, 32)
+[sub_resource type="AtlasTexture" id="AtlasTexture_mowdv"]
+atlas = ExtResource("3_tktml")
+region = Rect2(192, 0, 192, 192)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_klcwe"]
-atlas = ExtResource("2_k2v0x")
-region = Rect2(32, 32, 32, 32)
+[sub_resource type="AtlasTexture" id="AtlasTexture_mqpaf"]
+atlas = ExtResource("3_tktml")
+region = Rect2(384, 0, 192, 192)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_h4kyv"]
-atlas = ExtResource("2_k2v0x")
-region = Rect2(0, 32, 32, 32)
+[sub_resource type="AtlasTexture" id="AtlasTexture_fcyyi"]
+atlas = ExtResource("3_tktml")
+region = Rect2(576, 0, 192, 192)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ivrk3"]
-atlas = ExtResource("2_k2v0x")
-region = Rect2(0, 0, 32, 32)
+[sub_resource type="AtlasTexture" id="AtlasTexture_hc8jf"]
+atlas = ExtResource("3_tktml")
+region = Rect2(768, 0, 192, 192)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_d01aa"]
-atlas = ExtResource("2_k2v0x")
-region = Rect2(0, 32, 32, 32)
+[sub_resource type="AtlasTexture" id="AtlasTexture_6q4uj"]
+atlas = ExtResource("3_tktml")
+region = Rect2(960, 0, 192, 192)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_xnhwg"]
-atlas = ExtResource("2_k2v0x")
-region = Rect2(32, 32, 32, 32)
+[sub_resource type="AtlasTexture" id="AtlasTexture_qavnf"]
+atlas = ExtResource("3_tktml")
+region = Rect2(1152, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_crbvu"]
+atlas = ExtResource("3_tktml")
+region = Rect2(1344, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cdgiu"]
+atlas = ExtResource("5_4sjn4")
+region = Rect2(0, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vijup"]
+atlas = ExtResource("5_4sjn4")
+region = Rect2(192, 0, 192, 192)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_xnhwg"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_q8b3y")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ibvch")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_klcwe")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_h4kyv")
+"texture": ExtResource("2_gxf5a")
 }],
 "loop": false,
 "name": &"attack",
@@ -54,36 +59,36 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_ivrk3")
+"texture": SubResource("AtlasTexture_4bjrb")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_ivrk3")
+"texture": SubResource("AtlasTexture_mowdv")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_ivrk3")
+"texture": SubResource("AtlasTexture_mqpaf")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_ivrk3")
+"texture": SubResource("AtlasTexture_fcyyi")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_ivrk3")
+"texture": SubResource("AtlasTexture_hc8jf")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_ivrk3")
+"texture": SubResource("AtlasTexture_6q4uj")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_ivrk3")
+"texture": SubResource("AtlasTexture_qavnf")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_ivrk3")
+"texture": SubResource("AtlasTexture_crbvu")
 }],
 "loop": false,
 "name": &"dead",
-"speed": 5.0
+"speed": 8.0
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("3_gxf5a")
+"texture": ExtResource("4_kxuun")
 }],
 "loop": false,
 "name": &"idle",
@@ -91,16 +96,16 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_d01aa")
+"texture": SubResource("AtlasTexture_cdgiu")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_xnhwg")
+"texture": SubResource("AtlasTexture_vijup")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_d01aa")
+"texture": SubResource("AtlasTexture_cdgiu")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_xnhwg")
+"texture": SubResource("AtlasTexture_vijup")
 }],
 "loop": false,
 "name": &"wind_up",
@@ -113,6 +118,8 @@ script = ExtResource("1_ivxw4")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1490329940]
 sprite_frames = SubResource("SpriteFrames_xnhwg")
 animation = &"wind_up"
+frame = 3
+frame_progress = 1.0
 script = ExtResource("4_tktml")
 
 [node name="BattleDecisionTimer" type="Timer" parent="." unique_id=1840637788]
