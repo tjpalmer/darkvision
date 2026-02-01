@@ -9,6 +9,8 @@ extends Node2D
 @onready var victory_screen_timer: Timer = $VictoryScreenTimer
 @onready var for_now_label: Label = $VictoryPanel/ForNowLabel
 @onready var level_up_label: Label = $VictoryPanel/LevelUpLabel
+@onready var battle_status_label: Label = $BattleStatusLabel
+@onready var battle_status_timer: Timer = $BattleStatusTimer
 
 var has_init: bool = false
 var victory: bool = false;
@@ -21,6 +23,7 @@ func _ready() -> void:
 	_end_battle()
 
 func _init_battle():
+	battle_status_label.visible = false
 	for_now_label.visible = true
 	level_up_label.visible = true
 	victory_timer_count = 0
@@ -59,6 +62,9 @@ func _on_enemy_damage_player(amount: int) -> void:
 	
 	if !is_player_blocking:
 		player_healthbar.damage(amount)
+	else:
+		battle_status_timer.start()
+		battle_status_label.visible = true
 
 
 func _on_player_attack_sprite_damage_enemy() -> void:
@@ -95,3 +101,7 @@ func _on_victory_screen_timer_timeout() -> void:
 			PlayerStats.health = player_healthbar.current_health
 			battle_ended.emit()
 			_end_battle()
+
+
+func _on_battle_status_timer_timeout() -> void:
+	battle_status_label.visible = false

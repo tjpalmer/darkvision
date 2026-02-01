@@ -11,6 +11,7 @@ const enemy_pos_frame := 1.0 / pov_frame_count_scale
 @onready var battle_engine: Node2D = $BattleManager/BattleEngine
 @onready var hud: Control = $Box/Margins/Hud
 @onready var world_box: VBoxContainer = $Box
+@onready var move_button: Button = $Box/MoveButtonControl/MoveButton
 
 var is_event_happening: bool = false
 
@@ -56,8 +57,8 @@ var current_action: String = ""  # "forward", "turn_left", "turn_right"
 
 var enemy_is_present: bool = false
 
-var treasure_spawn_chance: float = 0.33
-var enemy_spawn_chance: float = 0.33
+var treasure_spawn_chance: float = 0.5
+var enemy_spawn_chance: float = 0.25
 var should_spawn_chest_on_stop: float = false
 
 @onready var pov_sprite: AnimatedSprite2D = $Box/Pov/PovSprite
@@ -72,10 +73,14 @@ func _ready() -> void:
 	#_update_player_stats()
 
 
+func _process(_delta: float):
+	move_button.visible = !is_moving && !is_event_happening
+
 
 func _on_player_gain_hearts(hearts: int):
 	PlayerStats.heart_pieces += hearts
 	_update_player_stats()
+	is_event_happening = false
 	# Your handler code here
 	
 
@@ -161,20 +166,29 @@ func _do_turn_right() -> void:
 	_advance()
 
 
-func _unhandled_input(event: InputEvent) -> void:
+#func _unhandled_input(event: InputEvent) -> void:
+	#if is_event_happening:
+		#print("event happening no _unhandled_input")
+		#return
+		#
+	#if event.is_echo():
+		#return
+#
+	#if event.is_action_pressed("move_forward"):
+		#_try_step_forward()
+	#elif event.is_action_pressed("turn_left"):
+		#_do_turn_left()
+	#elif event.is_action_pressed("turn_right"):
+		#_do_turn_right()
+		
+func _try_press_on() -> void:
 	if is_event_happening:
 		print("event happening no _unhandled_input")
 		return
 		
-	if event.is_echo():
-		return
-
-	if event.is_action_pressed("move_forward"):
-		_try_step_forward()
-	elif event.is_action_pressed("turn_left"):
-		_do_turn_left()
-	elif event.is_action_pressed("turn_right"):
-		_do_turn_right()
+	_try_step_forward()
+	#_do_turn_left()
+	#_do_turn_right()
 ####################
 # END MOVEMENT SECTION #
 ####################
@@ -250,6 +264,7 @@ func do_spawn_chest():
 	current_chest.position = Vector2(get_viewport_rect().size.x / 2, get_viewport_rect().size.y * 2 / 3)
 	current_chest.player_gain_hearts.connect(_on_player_gain_hearts)
 	add_child(current_chest)
+	is_event_happening = true
 
 func _update_enemy_transform(frame := pov_sprite.frame as float):
 	if is_event_happening:
@@ -415,3 +430,9 @@ func _build_cell_array() -> void:
 
 func _on_battle_engine_battle_ended() -> void:
 	battle_ended()
+
+
+func _on_move_button_button_up() -> void:
+	print("move button pressed")
+	if !is_moving:
+		_try_press_on()

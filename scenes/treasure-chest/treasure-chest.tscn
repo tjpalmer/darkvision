@@ -3,6 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://by17s7k2u3kuj" path="res://sprites/support/treasure.webp" id="1_0s4uc"]
 [ext_resource type="Script" uid="uid://ubdxqg0j0xu" path="res://scenes/treasure-chest/treasure_chest.gd" id="1_eoime"]
 [ext_resource type="Texture2D" uid="uid://di8s0am3ax6nc" path="res://sprites/support/heart.webp" id="1_l7yof"]
+[ext_resource type="FontFile" uid="uid://c2twup1t6e74t" path="res://sprites/large/angel_wish.otf" id="4_v7fbl"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_l7yof"]
 atlas = ExtResource("1_0s4uc")
@@ -34,8 +35,31 @@ script = ExtResource("1_eoime")
 sprite_frames = SubResource("SpriteFrames_v7fbl")
 animation = &"open"
 
-[node name="MaskPiece" type="Sprite2D" parent="." unique_id=519065962]
+[node name="HeartPieceGroup" type="Node2D" parent="." unique_id=245766743]
 position = Vector2(0, -16)
+
+[node name="HeartPiece" type="Sprite2D" parent="HeartPieceGroup" unique_id=519065962]
 texture = ExtResource("1_l7yof")
+
+[node name="HeartPieceGainLabel2" type="Label" parent="HeartPieceGroup" unique_id=705025266]
+offset_left = 16.666666
+offset_top = -11.333335
+offset_right = 52.666664
+offset_bottom = 15.666665
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("4_v7fbl")
+theme_override_font_sizes/font_size = 26
+text = "+99"
+
+[node name="HeartPieceGainLabel" type="Label" parent="HeartPieceGroup" unique_id=1188935282]
+visible = false
+offset_left = 10.666667
+offset_top = -10.666667
+offset_right = 42.666668
+offset_bottom = 12.333333
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("4_v7fbl")
+theme_override_font_sizes/font_size = 22
+text = "+99"
 
 [connection signal="animation_finished" from="Chest" to="." method="_on_chest_animation_finished"]

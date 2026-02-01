@@ -10,7 +10,9 @@
 [ext_resource type="Texture2D" uid="uid://nvlf4e5g4lt1" path="res://sprites/pov/s_pov_left_to_forward_strip8.png" id="8_80cx4"]
 [ext_resource type="Texture2D" uid="uid://ck82w8ir2wjkt" path="res://sprites/pov/s_pov_right_to_forward_strip8.png" id="9_e8heu"]
 [ext_resource type="PackedScene" uid="uid://bxxua8kskjoa8" path="res://scenes/hud.tscn" id="10_hve3p"]
+[ext_resource type="FontFile" uid="uid://c2twup1t6e74t" path="res://sprites/large/angel_wish.otf" id="11_lc2xo"]
 [ext_resource type="PackedScene" uid="uid://den8fjg8e55w6" path="res://battle-engine/battle-engine.tscn" id="11_mfdv2"]
+[ext_resource type="Script" uid="uid://b4ek77qh4jlj2" path="res://move-button.gd" id="12_lc2xo"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_rvswv"]
 atlas = ExtResource("2_hve3p")
@@ -545,6 +547,16 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7sc4i"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 1)
+
+[sub_resource type="ImageTexture" id="ImageTexture_80cx4"]
+
 [node name="Game" type="ColorRect" unique_id=163400395]
 anchors_preset = 15
 anchor_right = 1.0
@@ -582,10 +594,33 @@ theme_override_constants/margin_bottom = 5
 layout_mode = 2
 metadata/_edit_use_anchors_ = true
 
+[node name="MoveButtonControl" type="Control" parent="Box" unique_id=827519884]
+layout_mode = 2
+
+[node name="MoveButton" type="Button" parent="Box/MoveButtonControl" unique_id=341011899]
+layout_mode = 0
+offset_left = 176.0
+offset_top = -83.0
+offset_right = 311.0
+offset_bottom = -41.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("11_lc2xo")
+theme_override_font_sizes/font_size = 22
+theme_override_styles/normal = SubResource("StyleBoxFlat_7sc4i")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_7sc4i")
+theme_override_styles/hover = SubResource("StyleBoxFlat_7sc4i")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_7sc4i")
+theme_override_styles/focus = SubResource("StyleBoxFlat_7sc4i")
+text = "PRESS ON"
+icon = SubResource("ImageTexture_80cx4")
+script = ExtResource("12_lc2xo")
+
 [node name="BattleManager" type="Node2D" parent="." unique_id=2137862089]
+visible = false
 
 [node name="BattleEngine" parent="BattleManager" unique_id=1649322611 instance=ExtResource("11_mfdv2")]
 
 [connection signal="animation_finished" from="Box/Pov/PovSprite" to="." method="_on_pov_sprite_animation_finished"]
 [connection signal="frame_changed" from="Box/Pov/PovSprite" to="." method="_on_pov_sprite_frame_changed"]
+[connection signal="button_up" from="Box/MoveButtonControl/MoveButton" to="." method="_on_move_button_button_up"]
 [connection signal="battle_ended" from="BattleManager/BattleEngine" to="." method="_on_battle_engine_battle_ended"]
