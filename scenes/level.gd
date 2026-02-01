@@ -10,5 +10,5 @@ func _ready():
 		sprite.sprite_frames = frames
 
 func update_label(value: int):
-	print("Updating label " + str(value))
+	#print("Updating label " + str(value))
 	label.text = str(value)

@@ -42,7 +42,7 @@ func rise_and_fade(node: Node2D, callback: Callable):
 	
 	# Rise up 100px + fade over 1.5 seconds
 	tween.tween_property(node, "position:y", node.position.y - 84, 1.0)
-	#tween.tween_callback(func(): heart_piece_gain_label2.visible = true)  # ← Show +X label after heart rises out of chest
+	tween.tween_callback(func(): SoundManager.play("item_pickup", -3.0))  # ← Show +X label after heart rises out of chest
 
 	tween.tween_property(node, "modulate:a", 0.0, 1.5)
 	
@@ -61,3 +61,8 @@ func open():
 func _on_chest_animation_finished() -> void:
 	heart_piece_group.visible = true
 	heart_should_rise = true
+
+
+func _on_chest_frame_changed() -> void:
+	if chest.frame == 1:
+		SoundManager.play("chest_open")

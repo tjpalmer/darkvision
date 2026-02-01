@@ -26,7 +26,7 @@ func heal(amount: int):
 
 func _update_bar():
 	if max_health == 0 or size.x <= 0:
-		print("Health bar not ready (max_health=" + str(max_health) + ", size=" + str(size) + ")")
+		#print("Health bar not ready (max_health=" + str(max_health) + ", size=" + str(size) + ")")
 		return
 	
 	var ratio: float = float(current_health) / float(max_health)

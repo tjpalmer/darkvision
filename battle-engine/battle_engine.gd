@@ -16,6 +16,9 @@ var has_init: bool = false
 var victory: bool = false;
 var victory_timer_count: int = 0
 
+var which_bgm_to_play = 0 # 0 for 1st bgm, 1 for 2nd bgm currently swapping back and forth every combat
+#var should_play_bgm = false
+
 signal battle_ended
 
 # Called when the node enters the scene tree for the first time.
@@ -23,11 +26,12 @@ func _ready() -> void:
 	_end_battle()
 
 func _init_battle():
+	#should_play_bgm = true
 	battle_status_label.visible = false
 	for_now_label.visible = true
 	level_up_label.visible = true
 	victory_timer_count = 0
-	print("INIT BATTLE")
+	#print("INIT BATTLE")
 	attack_button.init()
 	enemy.enter_battle()
 	victory_panel.visible = false
@@ -42,8 +46,9 @@ func _init_battle():
 	
 	
 func _end_battle():
-	print("DISABLE BATTLE PROCESS")
+	#print("DISABLE BATTLE PROCESS")
 	visible = false
+	has_init = false
 	process_mode = Node.PROCESS_MODE_DISABLED
 
 	
@@ -53,31 +58,45 @@ func _process(_delta: float) -> void:
 		attack_button.init()
 		_init_battle()
 		
+		if which_bgm_to_play == 0:
+			#print("Play combat bgm")
+			SoundManager.play("combat_bgm", -3.0, true)
+			which_bgm_to_play = 1
+		else:
+			#print("Play combat bgm ALT")
+			SoundManager.play("combat_bgm_alt", -3.0, true)
+			which_bgm_to_play = 0
+			
+		SoundManager.log()
+		
 		has_init = true
 
 
 func _on_enemy_damage_player(amount: int) -> void:
 	var is_player_blocking: bool = player_sprite.is_playing() and player_sprite.animation == "defend"
-	print("is blocking? " + str(is_player_blocking))
+	#print("is blocking? " + str(is_player_blocking))
 	
 	if !is_player_blocking:
+		SoundManager.play("player_hurt")
 		player_healthbar.damage(amount)
 	else:
 		battle_status_timer.start()
 		battle_status_label.visible = true
+		#print("play block_clang")
+		SoundManager.play("block_clang")
 
 
 func _on_player_attack_sprite_damage_enemy() -> void:
-	print("DAMAGE ENEMY")
+	#print("DAMAGE ENEMY")
 	enemy_healthbar.damage(PlayerStats.level)
 	if enemy_healthbar.current_health <= 0:
-		print("ENEMY DEDD")
+		#print("ENEMY DEDD")
 		enemy.die()
 	
 
 
 func _on_enemy_enemy_died() -> void:
-	print("enemy died ending battle")
+	#print("enemy died ending battle")
 	victory_screen_timer.start()
 	level_up_label.visible = false
 	for_now_label.visible = false
@@ -87,7 +106,13 @@ func _on_enemy_enemy_died() -> void:
 
 func _on_victory_screen_timer_timeout() -> void:
 	victory_timer_count += 1
-	print("victory count: " + str(victory_timer_count))
+	#print("victory count: " + str(victory_timer_count))
+	
+	if which_bgm_to_play == 1:
+		SoundManager.fade_out_and_stop("combat_bgm", 5.0)
+	else:
+		SoundManager.fade_out_and_stop("combat_bgm_alt", 5.0)
+	
 	match victory_timer_count:
 		1:
 			for_now_label.visible = true

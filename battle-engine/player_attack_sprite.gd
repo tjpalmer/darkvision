@@ -21,7 +21,7 @@ func reset_all():
 	position = _starting_position
 
 func play_anim(animation_name: String) -> bool:
-	print(str(is_playing()))
+	#print(str(is_playing()))
 	if is_playing():
 		return false
 
@@ -30,6 +30,9 @@ func play_anim(animation_name: String) -> bool:
 	
 	if animation == "attack":
 		damage_enemy.emit()
+		SoundManager.play("whoosh_attack")
+		#print("play whoosh_attack")
+
 	
 	#if animation_name == "defend":
 		#position.y += 48 # hacky positiong defend anim closer to player / bottom of view

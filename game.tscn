@@ -343,7 +343,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"pov_forward_to_exit",
-"speed": 5.0
+"speed": 3.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -372,7 +372,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"pov_forward_to_forward",
-"speed": 5.0
+"speed": 3.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -401,7 +401,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"pov_forward_to_left_A",
-"speed": 5.0
+"speed": 3.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -430,7 +430,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"pov_forward_to_left_B",
-"speed": 5.0
+"speed": 3.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -459,7 +459,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"pov_forward_to_right_A",
-"speed": 5.0
+"speed": 3.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -488,7 +488,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"pov_forward_to_right_B",
-"speed": 5.0
+"speed": 3.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -517,7 +517,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"pov_left_to_forward",
-"speed": 5.0
+"speed": 3.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -546,7 +546,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"pov_right_to_forward",
-"speed": 5.0
+"speed": 3.0
 }]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_7sc4i"]
@@ -588,9 +588,7 @@ layout_mode = 2
 [node name="PovSprite" type="AnimatedSprite2D" parent="Box/Pov" unique_id=693293025]
 scale = Vector2(5, 5)
 sprite_frames = SubResource("SpriteFrames_vqo61")
-animation = &"pov_forward_to_left_B"
-frame = 7
-frame_progress = 1.0
+animation = &"pov_forward_to_exit"
 centered = false
 
 [node name="Margins" type="MarginContainer" parent="Box" unique_id=1262756766]

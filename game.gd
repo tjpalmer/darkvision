@@ -7,6 +7,10 @@ const enemy_scale_max := 5.0
 const enemy_scale_frame := enemy_scale_max / pov_frame_count_scale
 const enemy_pos_frame := 1.0 / pov_frame_count_scale
 
+var treasure_spawn_chance: float = 1.0
+var enemy_spawn_chance: float = 1.0
+var should_spawn_chest_on_stop: float = false
+
 @onready var battle_manager: Node2D = $BattleManager
 @onready var battle_engine: Node2D = $BattleManager/BattleEngine
 @onready var hud: Control = $Box/Margins/Hud
@@ -59,10 +63,6 @@ var current_action: String = ""  # "forward", "turn_left", "turn_right"
 
 var enemy_is_present: bool = false
 
-var treasure_spawn_chance: float = 0.5
-var enemy_spawn_chance: float = 0.25
-var should_spawn_chest_on_stop: float = false
-
 @onready var pov_sprite: AnimatedSprite2D = $Box/Pov/PovSprite
 # Optional background:
 # @onready var background_sprite: Sprite2D = $Background
@@ -88,8 +88,11 @@ func _on_player_gain_hearts(hearts: int):
 
 func _stop_at_next_cell() -> void:
 	if is_event_happening:
-		print("event happening no stop at next cell")
+		#print("event happening no stop at next cell")
 		return
+	
+	#if move_button.visible == true and !SoundManager.is_playing("heartbeat_single"):
+	SoundManager.play("heartbeat_single", 5.0)
 		
 	if should_spawn_chest_on_stop:
 		do_spawn_chest()
@@ -126,7 +129,7 @@ func _update_player_stats():
 ####################
 func _try_step_forward() -> void:
 	if is_event_happening:
-		print("event happening no _try_step_forward")
+		#print("event happening no _try_step_forward")
 		return
 		
 	if game_won or is_moving:
@@ -139,7 +142,7 @@ func _try_step_forward() -> void:
 
 
 func _do_turn_left() -> void:
-	print("Try turn left")
+	#print("Try turn left")
 	if game_won or is_moving:
 		return
 
@@ -154,7 +157,7 @@ func _do_turn_left() -> void:
 
 	
 func _do_turn_right() -> void:
-	print("Try turn right")
+	#print("Try turn right")
 	if game_won or is_moving:
 		return
 
@@ -185,7 +188,7 @@ func _do_turn_right() -> void:
 		
 func _try_press_on() -> void:
 	if is_event_happening:
-		print("event happening no _unhandled_input")
+		#print("event happening no _unhandled_input")
 		return
 		
 	_try_step_forward()
@@ -198,16 +201,17 @@ func _try_press_on() -> void:
 
 func _advance():
 	if is_event_happening:
-		print("event happening no _advance")
+		#print("event happening no _advance")
 		return
-		
+
+	SoundManager.play("footsteps", -2.0)		
 	pov_sprite.play()
 	_try_choose_enemy()
 
 
 func _try_choose_enemy() -> void:
 	if is_event_happening:
-		print("event happening no _try_choose_enemy")
+		#print("event happening no _try_choose_enemy")
 		return
 		
 	# Remove current. TODO Already dead before we get here?
@@ -249,7 +253,7 @@ func _try_choose_enemy() -> void:
 
 func try_spawn_chest():
 	if is_event_happening:
-		print("event happening no try_spawn_chest")
+		#print("event happening no try_spawn_chest")
 		return
 		
 	# Spawn chest at % chance
@@ -262,7 +266,7 @@ func try_spawn_chest():
 func do_spawn_chest():
 	# Spawn chest
 	current_chest = CHEST_SCENE.instantiate()
-	print("SPAWNED CHEST")
+	#print("SPAWNED CHEST")
 	current_chest.position = Vector2(get_viewport_rect().size.x / 2, get_viewport_rect().size.y * 2 / 3)
 	current_chest.player_gain_hearts.connect(_on_player_gain_hearts)
 	add_child(current_chest)
@@ -270,7 +274,7 @@ func do_spawn_chest():
 
 func _update_enemy_transform(frame := pov_sprite.frame as float):
 	if is_event_happening:
-		print("event happening no _update_enemy_transform")
+		#print("event happening no _update_enemy_transform")
 		return
 		
 	if frame == 0:
@@ -288,7 +292,7 @@ func _update_enemy_transform(frame := pov_sprite.frame as float):
 
 func trigger_battle():
 	if is_event_happening:
-		print("event happening no trigger_battle")
+		#print("event happening no trigger_battle")
 		return
 		
 	if current_enemy != null:
@@ -306,10 +310,9 @@ func trigger_battle():
 	world_box.process_mode = Node.PROCESS_MODE_DISABLED
 	
 	
-	
 func battle_ended():
 	if !is_event_happening:
-		print("battle_ended but is_event_happening = " + str(is_event_happening))
+		#print("battle_ended but is_event_happening = " + str(is_event_happening))
 		return
 		
 	move_button_control.visible = true
@@ -337,7 +340,7 @@ func _on_pov_sprite_frame_changed() -> void:
 
 func _on_pov_sprite_animation_finished() -> void:
 	if is_event_happening:
-		print("event happening no _on_pov_sprite_animation_finished")
+		#print("event happening no _on_pov_sprite_animation_finished")
 		return
 		
 	if not is_moving:
@@ -441,6 +444,8 @@ func _on_battle_engine_battle_ended() -> void:
 
 
 func _on_move_button_button_up() -> void:
-	print("move button pressed")
+	SoundManager.log()
+
+	#print("move button pressed")
 	if !is_moving:
 		_try_press_on()

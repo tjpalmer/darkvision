@@ -64,7 +64,7 @@ func enter_battle():
 	sprite.reset_amplitude()
 	sprite.reset_speed()
 	battle_decision_timer.start()  # Ensure timer ready
-	print("enemy entering battle. hp: " + str(health) + ", atk: " + str(attack_damage))
+	#print("enemy entering battle. hp: " + str(health) + ", atk: " + str(attack_damage))
 
 func start_attack() -> void:
 	if state == State.DEAD:
@@ -144,7 +144,7 @@ func _update_dead(_delta: float) -> void:
 
 
 func cleanup():
-	print("cleanup!")
+	#print("cleanup!")
 	enemy_died.emit()
 	_enter_state(State.WAITING_FOR_BATTLE)
 	#queue_free() # if we queue_free() we can't reuse for next battle
