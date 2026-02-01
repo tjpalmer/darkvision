@@ -32,6 +32,7 @@ var sounds: Dictionary = {  # "hit": preload("res://hit.ogg"), etc.
 	"lich_death": preload("res://audio/bgm/lich-death.wav"),
 	"lich_laugh": preload("res://audio/bgm/lich-laugh.wav"),
 	"lich_growl": preload("res://audio/bgm/lich-growl.wav"),
+	"little_death": preload("res://audio/sfx/little-death.wav"),
 } 
 
 var channels: Array[AudioStreamPlayer] = []

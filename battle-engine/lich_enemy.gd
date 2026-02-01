@@ -18,8 +18,8 @@ var time_between_decisions: float = 1.5 # in seconds
 signal damage_player(amount: int)
 signal enemy_died
 
-var attack_damage: float = 1 # TODO CHANGE BACK TO 14.0
-var health: float = 1.0 # TODO CHANGE BACK TO 55 
+var attack_damage: float = 14.0
+var health: float = 55
 var is_dead: bool = false
 
 var did_init: bool = false

@@ -7,7 +7,7 @@ extends Node2D
 
 var heart_should_rise: bool = false
 var heart_is_rising: bool = false
-var heart_pieces_gained: int = 666  #randi_range(7, 19)
+var heart_pieces_gained: int = randi_range(123, 321)
 
 signal player_gain_hearts(amount: int)
 

@@ -97,10 +97,12 @@ func _enter_state(new_state: State) -> void:
 			sprite.set_speed(attack_speed)
 			#print("ENEMY GOING ATTACK")
 			sprite.play("attack")
+			SoundManager.play("little_growl")
 			damage_player.emit(attack_damage)
 		State.DEAD:
 			#print("ENEMY GOING DEAD")
 			sprite.play("dead")
+			SoundManager.play("little_death")
 			# Optional: disable collisions / logic here
 
 

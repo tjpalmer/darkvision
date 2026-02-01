@@ -93,6 +93,15 @@ func _init_battle(is_final_boss: bool = false):
 		enemy.enter_battle()
 		enemy_healthbar.set_max_health(enemy.health)
 		enemy_healthbar.set_health(enemy.health)
+		try_stop_combat_bgm()
+		if which_bgm_to_play == 0:
+			#print("Play combat bgm")
+			SoundManager.play("combat_bgm", -3.0, true)
+			which_bgm_to_play = 1
+		else:
+			#print("Play combat bgm ALT")
+			SoundManager.play("combat_bgm_alt", -3.0, true)
+			which_bgm_to_play = 0
 
 	player_healthbar.set_max_health(PlayerStats.max_health)
 	player_healthbar.set_health(PlayerStats.health)
@@ -115,22 +124,12 @@ func _process(_delta: float) -> void:
 	if !has_init: # currently WILL NOT RUN for final boss battle so we duping logic soz m8
 		attack_button.init()
 		_init_battle()
-		
-		#if !is_final_boss_battle:
-		if which_bgm_to_play == 0:
-			#print("Play combat bgm")
-			SoundManager.play("combat_bgm", -3.0, true)
-			which_bgm_to_play = 1
-		else:
-			#print("Play combat bgm ALT")
-			SoundManager.play("combat_bgm_alt", -3.0, true)
-			which_bgm_to_play = 0
 			
 		SoundManager.log()
 		has_init = true
 		
 	#print ("did_final_boss_init? " + str(did_final_boss_init) + ", enemy != null? " + str(enemy != null))
-	if !did_final_boss_init and enemy != null: # hax lul
+	if !did_final_boss_init and enemy != null and is_final_boss_battle: # hax lul
 		attack_button.init()
 		print("init final boss time")
 		SoundManager.play("lich_intro_bgm", -3.0)
