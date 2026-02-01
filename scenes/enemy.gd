@@ -2,7 +2,8 @@ extends Node2D
 class_name Enemy
 
 
-var start_pos := Vector2(0.5, 0.5)
+# Offset from center to the edges at 0.5. Usually offset of y matters most.
+var start_pos := Vector2.ZERO
 
 
 # Called when the node enters the scene tree for the first time.
