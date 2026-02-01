@@ -7,8 +7,8 @@ const enemy_scale_max := 5.0
 const enemy_scale_frame := enemy_scale_max / pov_frame_count_scale
 const enemy_pos_frame := 1.0 / pov_frame_count_scale
 
-var treasure_spawn_chance: float = 1.0
-var enemy_spawn_chance: float = 1.0
+var treasure_spawn_chance: float = 0.5
+var enemy_spawn_chance: float = 0.4
 var should_spawn_chest_on_stop: float = false
 
 @onready var battle_manager: Node2D = $BattleManager
