@@ -38,7 +38,7 @@ var cell_array: Array[int] = []
 var is_moving: bool = false
 var current_action: String = ""  # "forward", "turn_left", "turn_right"
 
-@onready var pov_sprite: AnimatedSprite2D = $PovSprite
+@onready var pov_sprite: AnimatedSprite2D = $Box/Pov/PovSprite
 # Optional background:
 # @onready var background_sprite: Sprite2D = $Background
 

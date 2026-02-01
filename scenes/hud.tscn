@@ -1,0 +1,65 @@
+[gd_scene format=3 uid="uid://bxxua8kskjoa8"]
+
+[ext_resource type="PackedScene" uid="uid://p4ylr0nyxwrc" path="res://scenes/level.tscn" id="1_uo2fv"]
+[ext_resource type="SpriteFrames" uid="uid://b6wh8ydkavhoy" path="res://scenes/levels/potion.tres" id="2_047uy"]
+[ext_resource type="SpriteFrames" uid="uid://kegigd0vt0sg" path="res://scenes/levels/sword.tres" id="3_5pdws"]
+[ext_resource type="SpriteFrames" uid="uid://bxe7umbyn25xx" path="res://scenes/levels/heart.tres" id="4_5pdws"]
+[ext_resource type="SpriteFrames" uid="uid://55gp5707eihy" path="res://scenes/levels/treasure.tres" id="5_047uy"]
+[ext_resource type="Texture2D" uid="uid://botbiva44al2y" path="res://sprites/support/control.webp" id="5_uo2fv"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hd3ao"]
+atlas = ExtResource("5_uo2fv")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_0i1j5"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hd3ao")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Hud" type="Control" unique_id=2145666443]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Layout" type="HBoxContainer" parent="." unique_id=1692391501]
+layout_mode = 0
+offset_right = 480.0
+offset_bottom = 340.0
+size_flags_horizontal = 3
+
+[node name="Levels" type="HBoxContainer" parent="Layout" unique_id=1584701831]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Potion" parent="Layout/Levels" unique_id=1198524218 instance=ExtResource("1_uo2fv")]
+layout_mode = 2
+frames = ExtResource("2_047uy")
+
+[node name="Sword" parent="Layout/Levels" unique_id=1195478031 instance=ExtResource("1_uo2fv")]
+layout_mode = 2
+frames = ExtResource("3_5pdws")
+
+[node name="Heart" parent="Layout/Levels" unique_id=468892750 instance=ExtResource("1_uo2fv")]
+layout_mode = 2
+frames = ExtResource("4_5pdws")
+
+[node name="Treasure" parent="Layout/Levels" unique_id=1716857840 instance=ExtResource("1_uo2fv")]
+layout_mode = 2
+frames = ExtResource("5_047uy")
+
+[node name="Move" type="Control" parent="Layout" unique_id=841336640]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+
+[node name="Sprite" type="AnimatedSprite2D" parent="Layout/Move" unique_id=355630824]
+position = Vector2(20, 20)
+sprite_frames = SubResource("SpriteFrames_0i1j5")

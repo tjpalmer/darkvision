@@ -1,0 +1,46 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://b6wh8ydkavhoy"]
+
+[ext_resource type="Texture2D" uid="uid://cv0ddplscxmto" path="res://sprites/support/potion.webp" id="1_8he8k"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5pdws"]
+atlas = ExtResource("1_8he8k")
+region = Rect2(0, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_047uy"]
+atlas = ExtResource("1_8he8k")
+region = Rect2(32, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uo2fv"]
+atlas = ExtResource("1_8he8k")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6fi6k"]
+atlas = ExtResource("1_8he8k")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5ysmq"]
+atlas = ExtResource("1_8he8k")
+region = Rect2(0, 0, 32, 32)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5pdws")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_047uy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uo2fv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6fi6k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5ysmq")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
