@@ -1,11 +1,11 @@
 extends Node2D
 
-@onready var attack_button = $AttackButton
-@onready var common_enemy: Node2D = $Enemy
+@onready var attack_button = $BattleGroup/AttackButton
+@onready var common_enemy: Node2D = $BattleGroup/Enemy
 #@onready var lich_enemy: Node2D = $LichEnemy
-@onready var enemy_healthbar: Control = $EnemyHealthBar
-@onready var player_healthbar: Control = $PlayerHealthBar
-@onready var player_sprite: AnimatedSprite2D = $PlayerAttackSprite
+@onready var enemy_healthbar: Control = $BattleGroup/EnemyHealthBar
+@onready var player_healthbar: Control = $BattleGroup/PlayerHealthBar
+@onready var player_sprite: AnimatedSprite2D = $BattleGroup/PlayerAttackSprite
 @onready var victory_panel: Panel = $VictoryPanel
 @onready var you_died_panel: Panel = $YouDiedPanel
 @onready var game_win_panel: Panel = $GameWinPanel
@@ -17,8 +17,10 @@ extends Node2D
 @onready var died_for_now_label: Label = $YouDiedPanel/ForNowLabel
 @onready var died_level_down_label: Label = $YouDiedPanel/LevelDownLabel
 @onready var level_up_label: Label = $VictoryPanel/LevelUpLabel
-@onready var battle_status_label: Label = $BattleStatusLabel
+@onready var battle_status_label: Label = $BattleGroup/BattleStatusLabel
 @onready var battle_status_timer: Timer = $BattleStatusTimer
+
+@onready var battle_group: Node2D = $BattleGroup
 
 var lich_scene: PackedScene = preload("res://battle-engine/lich_enemy.tscn")
 
@@ -30,6 +32,7 @@ var win_timer_count: int = 0
 var player_is_dead: bool = false
 var is_final_boss_battle: bool = false
 var did_final_boss_init: bool = false # hacky bool weee
+var is_final_boss_dead: bool = false
 
 var which_bgm_to_play = 0 # 0 for 1st bgm, 1 for 2nd bgm currently swapping back and forth every combat
 #var should_play_bgm = false
@@ -144,7 +147,7 @@ func _process(_delta: float) -> void:
 		
 	if did_final_boss_init:
 		# print("try to play lich loop")
-		if !SoundManager.is_playing("lich_intro_bgm") and !SoundManager.is_playing("lich_loop_bgm"):
+		if !SoundManager.is_playing("lich_intro_bgm") and !SoundManager.is_playing("lich_loop_bgm") and !is_final_boss_dead:
 			print("playing lich loop")
 			SoundManager.play("lich_loop_bgm", -3.0, true)
 
@@ -182,20 +185,22 @@ func _on_player_attack_sprite_damage_enemy() -> void:
 func _on_enemy_enemy_died() -> void:
 	#print("enemy died ending battle")
 	if is_final_boss_battle:
+		is_final_boss_dead = true
 		try_stop_combat_bgm()
 		print("start game win timer")
 		game_win_timer.start()
 		game_win_panel.visible = true
 		victory_panel.visible = false
+		battle_group.visible = false
 	else:
 		print("start victory screen regular timer")
 		victory_screen_timer.start()
 		victory_panel.visible = true
+		game_win_panel.visible = false
 
 	level_up_label.visible = false
 	for_now_label.visible = false
 	you_died_panel.visible = false
-	game_win_panel.visible = false
 	
 	
 func player_died():
@@ -213,16 +218,10 @@ func player_died():
 	
 	
 func try_stop_combat_bgm():
-	if which_bgm_to_play == 1:
 		SoundManager.fade_out_and_stop("combat_bgm", 3.0)
-	else:
 		SoundManager.fade_out_and_stop("combat_bgm_alt", 3.0)
-		
-	if SoundManager.is_playing("lich_intro_bgm"):
-		SoundManager.stop("lich_intro_bgm")
-
-	if SoundManager.is_playing("lich_loop_bgm"):
-		SoundManager.stop("lich_loop_bgm")
+		SoundManager.fade_out_and_stop("lich_intro_bgm")
+		SoundManager.fade_out_and_stop("lich_loop_bgm")
 		
 func _on_victory_screen_timer_timeout() -> void:
 	victory_timer_count += 1

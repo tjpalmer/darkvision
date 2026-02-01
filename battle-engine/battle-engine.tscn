@@ -139,22 +139,24 @@ animations = [{
 [node name="BattleEngine" type="Node2D" unique_id=1649322611]
 script = ExtResource("1_8pl44")
 
-[node name="Panel" type="Panel" parent="." unique_id=139991779]
+[node name="BattleGroup" type="Node2D" parent="." unique_id=892565295]
+
+[node name="Panel" type="Panel" parent="BattleGroup" unique_id=139991779]
 offset_right = 480.0
 offset_bottom = 256.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_pv81d")
 
-[node name="Panel2" type="Panel" parent="." unique_id=1269732057]
+[node name="Panel2" type="Panel" parent="BattleGroup" unique_id=1269732057]
 offset_top = 256.0
 offset_right = 480.0
 offset_bottom = 336.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_pv81d")
 
-[node name="Enemy" parent="." unique_id=179599551 instance=ExtResource("1_x7rji")]
+[node name="Enemy" parent="BattleGroup" unique_id=179599551 instance=ExtResource("1_x7rji")]
 position = Vector2(232.00002, 144)
 scale = Vector2(3, 3)
 
-[node name="AttackButton" type="Button" parent="." unique_id=1001528584]
+[node name="AttackButton" type="Button" parent="BattleGroup" unique_id=1001528584]
 offset_left = 200.0
 offset_top = 280.0
 offset_right = 296.0
@@ -171,7 +173,7 @@ text = "ATTACK!"
 icon = SubResource("ImageTexture_8pl44")
 script = ExtResource("2_baey7")
 
-[node name="PlayerAttackSprite" type="AnimatedSprite2D" parent="." unique_id=199110083]
+[node name="PlayerAttackSprite" type="AnimatedSprite2D" parent="BattleGroup" unique_id=199110083]
 modulate = Color(1, 1, 1, 0.78039217)
 position = Vector2(240.00002, 152)
 scale = Vector2(2.5, 2.5)
@@ -181,14 +183,14 @@ frame = 11
 frame_progress = 1.0
 script = ExtResource("6_ct57k")
 
-[node name="PlayerHealthBar" parent="." unique_id=1631433104 instance=ExtResource("7_ct57k")]
+[node name="PlayerHealthBar" parent="BattleGroup" unique_id=1631433104 instance=ExtResource("7_ct57k")]
 offset_left = 48.0
 offset_top = 304.0
 offset_right = 88.01431
 offset_bottom = 356.85834
 scale = Vector2(3.1977098, -0.4540441)
 
-[node name="EnemyHealthBar" parent="." unique_id=207078053 instance=ExtResource("7_ct57k")]
+[node name="EnemyHealthBar" parent="BattleGroup" unique_id=207078053 instance=ExtResource("7_ct57k")]
 custom_minimum_size = Vector2(100, 100)
 offset_left = 272.0
 offset_top = 16.0
@@ -196,7 +198,7 @@ offset_right = 372.0
 offset_bottom = 179.7038
 scale = Vector2(1.2689183, 0.1466063)
 
-[node name="PlayerLabelHp" type="Label" parent="." unique_id=1349741756]
+[node name="PlayerLabelHp" type="Label" parent="BattleGroup" unique_id=1349741756]
 offset_left = 16.0
 offset_top = 280.0
 offset_right = 40.0
@@ -205,7 +207,7 @@ theme_override_fonts/font = ExtResource("3_vvyhw")
 theme_override_font_sizes/font_size = 22
 text = "HP"
 
-[node name="EnemyLabelHp" type="Label" parent="." unique_id=1694176442]
+[node name="EnemyLabelHp" type="Label" parent="BattleGroup" unique_id=1694176442]
 offset_left = 152.0
 offset_top = 16.0
 offset_right = 240.0
@@ -214,7 +216,17 @@ theme_override_fonts/font = ExtResource("3_vvyhw")
 theme_override_font_sizes/font_size = 22
 text = "ENEMY HP"
 
+[node name="BattleStatusLabel" type="Label" parent="BattleGroup" unique_id=1395021668]
+offset_left = 72.0
+offset_top = 136.0
+offset_right = 151.0
+offset_bottom = 159.0
+theme_override_fonts/font = ExtResource("3_vvyhw")
+theme_override_font_sizes/font_size = 22
+text = "BLOCKED!"
+
 [node name="VictoryPanel" type="Panel" parent="." unique_id=1678412722]
+visible = false
 offset_right = 480.0
 offset_bottom = 256.0
 scale = Vector2(1, 1.3199999)
@@ -251,6 +263,7 @@ theme_override_font_sizes/font_size = 32
 text = "LEVEL UP + 1"
 
 [node name="YouDiedPanel" type="Panel" parent="." unique_id=1852331047]
+visible = false
 offset_right = 480.0
 offset_bottom = 256.0
 scale = Vector2(1, 1.3199999)
@@ -303,6 +316,7 @@ theme_override_font_sizes/font_size = 48
 text = "VICTORY..."
 
 [node name="ForEverLabel" type="Label" parent="GameWinPanel" unique_id=1445461378]
+visible = false
 layout_mode = 0
 offset_left = 96.0
 offset_top = 127.272736
@@ -318,15 +332,6 @@ one_shot = true
 [node name="YouDiedTimer" type="Timer" parent="." unique_id=1825673423]
 one_shot = true
 
-[node name="BattleStatusLabel" type="Label" parent="." unique_id=1395021668]
-offset_left = 72.0
-offset_top = 136.0
-offset_right = 151.0
-offset_bottom = 159.0
-theme_override_fonts/font = ExtResource("3_vvyhw")
-theme_override_font_sizes/font_size = 22
-text = "BLOCKED!"
-
 [node name="BattleStatusTimer" type="Timer" parent="." unique_id=76422045]
 wait_time = 2.0
 one_shot = true
@@ -335,10 +340,10 @@ one_shot = true
 wait_time = 3.0
 one_shot = true
 
-[connection signal="damage_player" from="Enemy" to="." method="_on_enemy_damage_player"]
-[connection signal="enemy_died" from="Enemy" to="." method="_on_enemy_enemy_died"]
-[connection signal="animation_finished" from="PlayerAttackSprite" to="PlayerAttackSprite" method="_on_animation_finished"]
-[connection signal="damage_enemy" from="PlayerAttackSprite" to="." method="_on_player_attack_sprite_damage_enemy"]
+[connection signal="damage_player" from="BattleGroup/Enemy" to="." method="_on_enemy_damage_player"]
+[connection signal="enemy_died" from="BattleGroup/Enemy" to="." method="_on_enemy_enemy_died"]
+[connection signal="animation_finished" from="BattleGroup/PlayerAttackSprite" to="BattleGroup/PlayerAttackSprite" method="_on_animation_finished"]
+[connection signal="damage_enemy" from="BattleGroup/PlayerAttackSprite" to="." method="_on_player_attack_sprite_damage_enemy"]
 [connection signal="timeout" from="VictoryScreenTimer" to="." method="_on_victory_screen_timer_timeout"]
 [connection signal="timeout" from="YouDiedTimer" to="." method="_on_you_died_timer_timeout"]
 [connection signal="timeout" from="BattleStatusTimer" to="." method="_on_battle_status_timer_timeout"]
