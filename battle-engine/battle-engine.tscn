@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://7k5cdui1g1sq" path="res://battle-engine/assets/purple-attack-anim.png" id="4_18kkk"]
 [ext_resource type="Texture2D" uid="uid://b0b30fqweqifj" path="res://battle-engine/assets/temp_shield-Transparent.png" id="5_7xprn"]
 [ext_resource type="Script" uid="uid://dl4o26mtevkpc" path="res://battle-engine/player_attack_sprite.gd" id="6_ct57k"]
+[ext_resource type="PackedScene" uid="uid://fr2jui8rhy5d" path="res://scenes/healthbar/HealthBar.tscn" id="7_ct57k"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pv81d"]
 bg_color = Color(0, 0, 0, 1)
@@ -114,13 +115,10 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": ExtResource("5_7xprn")
-}, {
-"duration": 1.0,
-"texture": ExtResource("5_7xprn")
 }],
 "loop": false,
 "name": &"defend",
-"speed": 5.0
+"speed": 9.0
 }]
 
 [node name="BattleEngine" type="Node2D" unique_id=1649322611]
@@ -162,7 +160,40 @@ modulate = Color(1, 1, 1, 0.78039217)
 position = Vector2(480, 224)
 scale = Vector2(6, 6)
 sprite_frames = SubResource("SpriteFrames_hvo25")
-animation = &"attack"
+animation = &"defend"
 script = ExtResource("6_ct57k")
 
+[node name="PlayerHealthBar" parent="." unique_id=1631433104 instance=ExtResource("7_ct57k")]
+offset_left = 88.00001
+offset_top = 509.0
+offset_right = 128.01431
+offset_bottom = 543.0703
+scale = Vector2(6.39771, -1.1740428)
+
+[node name="EnemyHealthBar" parent="." unique_id=207078053 instance=ExtResource("7_ct57k")]
+custom_minimum_size = Vector2(100, 100)
+offset_left = 648.0
+offset_top = 208.0
+offset_right = 748.0
+offset_bottom = 308.0
+scale = Vector2(2.5489182, 0.4266063)
+
+[node name="PlayerLabelHp" type="Label" parent="." unique_id=1349741756]
+offset_left = 24.0
+offset_top = 464.0
+offset_right = 68.0
+offset_bottom = 509.0
+theme_override_font_sizes/font_size = 32
+text = "HP"
+
+[node name="EnemyLabelHp" type="Label" parent="." unique_id=1694176442]
+offset_left = 680.0
+offset_top = 152.0
+offset_right = 841.0
+offset_bottom = 197.0
+theme_override_font_sizes/font_size = 32
+text = "ENEMY HP"
+
+[connection signal="damage_player" from="Enemy" to="." method="_on_enemy_damage_player"]
 [connection signal="animation_finished" from="PlayerAttackSprite" to="PlayerAttackSprite" method="_on_animation_finished"]
+[connection signal="damage_enemy" from="PlayerAttackSprite" to="." method="_on_player_attack_sprite_damage_enemy"]

@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://fr2jui8rhy5d"]
+
+[ext_resource type="Script" uid="uid://cpmfdw6onyd3i" path="res://scenes/healthbar/healthbar.gd" id="1_figio"]
+
+[node name="HealthBar" type="Control" unique_id=1631433104]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_figio")
+
+[node name="Background" type="ColorRect" parent="." unique_id=678113141]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.23392546, 0.23392546, 0.23392543, 1)
+
+[node name="Fill" type="ColorRect" parent="." unique_id=1396796272]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2

@@ -22,6 +22,7 @@ func set_amplitude(value: float):
 	
 func set_speed(value: float):
 	speed = value
+
 	
 func reset_amplitude():
 	amplitude = _initial_amplitude
