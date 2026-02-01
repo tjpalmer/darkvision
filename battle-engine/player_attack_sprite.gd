@@ -32,7 +32,7 @@ func play_anim(animation_name: String) -> bool:
 		damage_enemy.emit()
 	
 	if animation_name == "defend":
-		position.y += 128 # hacky positiong defend anim closer to player / bottom of view
+		position.y += 48 # hacky positiong defend anim closer to player / bottom of view
 	return true
 
 func _process(delta: float) -> void:

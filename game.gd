@@ -2,7 +2,17 @@ extends ColorRect
 
 const CELL_NUM := 30
 
+const pov_frame_count_scale := 8.0
+const enemy_scale_max := 5.0
+const enemy_scale_frame := enemy_scale_max / pov_frame_count_scale
+const enemy_pos_frame := 1.0 / pov_frame_count_scale
+
+@onready var battle_manager: Node2D = $BattleManager
+@onready var battle_engine: Node2D = $BattleManager/BattleEngine
 @onready var hud: Control = $Box/Margins/Hud
+@onready var world_box: VBoxContainer = $Box
+
+var is_event_happening: bool = false
 
 enum CellSpriteId {
 	FORWARD_TO_FORWARD,     # 0
@@ -41,6 +51,11 @@ var cell_array: Array[int] = []
 var is_moving: bool = false
 var current_action: String = ""  # "forward", "turn_left", "turn_right"
 
+var enemy_is_present: bool = false
+
+var treasure_spawn_chance: float = 0.33
+var enemy_spawn_chance: float = 0.33
+
 @onready var pov_sprite: AnimatedSprite2D = $Box/Pov/PovSprite
 # Optional background:
 # @onready var background_sprite: Sprite2D = $Background
@@ -54,6 +69,10 @@ func _ready() -> void:
 
 
 func _stop_at_next_cell() -> void:
+	if is_event_happening:
+		print("event happening no stop at next cell")
+		return
+		
 	_update_player_stats()
 	var sprite_id: int = cell_array[current_cell]
 	var anim_name: String = SPRITE_ANIMS[sprite_id]
@@ -84,6 +103,10 @@ func _update_player_stats():
 # BEGIN MOVEMENT SECTION #
 ####################
 func _try_step_forward() -> void:
+	if is_event_happening:
+		print("event happening no _try_step_forward")
+		return
+		
 	if game_won or is_moving:
 		return
 
@@ -124,6 +147,10 @@ func _do_turn_right() -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
+	if is_event_happening:
+		print("event happening no _unhandled_input")
+		return
+		
 	if event.is_echo():
 		return
 
@@ -139,11 +166,19 @@ func _unhandled_input(event: InputEvent) -> void:
 
 
 func _advance():
+	if is_event_happening:
+		print("event happening no _advance")
+		return
+		
 	pov_sprite.play()
-	_choose_enemy()
+	_try_choose_enemy()
 
 
-func _choose_enemy() -> void:
+func _try_choose_enemy() -> void:
+	if is_event_happening:
+		print("event happening no _try_choose_enemy")
+		return
+		
 	# Remove current. TODO Already dead before we get here?
 	if current_enemy != null:
 		remove_child(current_enemy)
@@ -165,10 +200,9 @@ func _choose_enemy() -> void:
 			return
 			
 	# Spawn enemy at % chance
-	var spawn_chance: float = 0.33
 	var rando = randf()
 	
-	if rando > spawn_chance:
+	if rando > enemy_spawn_chance:
 		return
 		
 	# Spawn enemy.
@@ -183,11 +217,13 @@ func _choose_enemy() -> void:
 
 
 func try_spawn_chest():
+	if is_event_happening:
+		print("event happening no try_spawn_chest")
+		return
+		
 	# Spawn chest at % chance
-	var spawn_chance: float = 0.33
 	var rando = randf()
-	
-	if rando > spawn_chance:
+	if rando > treasure_spawn_chance:
 		return
 		
 	# Spawn enemy.
@@ -201,20 +237,51 @@ func try_spawn_chest():
 	#add_child(current_enemy)
 
 func _update_enemy_transform(frame := pov_sprite.frame as float):
+	if is_event_happening:
+		print("event happening no _update_enemy_transform")
+		return
+		
 	if frame == 0:
 		frame = 8
-	var enemy_scale := enemy_scale_frame * frame
+	var enemy_scale := enemy_scale_frame * frame * 4
 	current_enemy.scale = Vector2.ONE * enemy_scale
 	var pov_size := _animated_sprite_size(pov_sprite)
 	current_enemy.position = \
 		pov_size / 2 + \
 		pov_size * current_enemy.start_pos * enemy_pos_frame * frame
+		
+	if frame == 7:
+		trigger_battle()
 
 
-const pov_frame_count_scale := 8.0
-const enemy_scale_max := 5.0
-const enemy_scale_frame := enemy_scale_max / pov_frame_count_scale
-const enemy_pos_frame := 1.0 / pov_frame_count_scale
+func trigger_battle():
+	if is_event_happening:
+		print("event happening no trigger_battle")
+		return
+		
+	if current_enemy != null:
+		remove_child(current_enemy)
+		current_enemy.queue_free()
+		current_enemy = null
+		
+	is_event_happening = true
+	battle_manager.visible = true
+	battle_engine._init_battle()
+	world_box.visible = false
+	world_box.process_mode = Node.PROCESS_MODE_DISABLED
+	
+	
+	
+func battle_ended():
+	if !is_event_happening:
+		print("battle_ended but is_event_happening = " + str(is_event_happening))
+		return
+		
+	PlayerStats.level += 1
+	world_box.visible = true
+	world_box.process_mode = Node.PROCESS_MODE_INHERIT
+	is_event_happening = false
+
 
 
 func _animated_sprite_size(sprite: AnimatedSprite2D) -> Vector2:
@@ -231,6 +298,10 @@ func _on_pov_sprite_frame_changed() -> void:
 
 
 func _on_pov_sprite_animation_finished() -> void:
+	if is_event_happening:
+		print("event happening no _on_pov_sprite_animation_finished")
+		return
+		
 	if not is_moving:
 		return
 
@@ -325,3 +396,7 @@ func _build_cell_array() -> void:
 		cell_array.append(c)
 
 	cell_array.append(CellSpriteId.FORWARD_TO_EXIT)
+
+
+func _on_battle_engine_battle_ended() -> void:
+	battle_ended()

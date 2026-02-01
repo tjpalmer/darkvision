@@ -2,6 +2,7 @@ extends Node2D
 # or: extends CharacterBody2D
 
 enum State {
+	WAITING_FOR_BATTLE,
 	INITIAL,
 	IDLE,
 	WIND_UP,
@@ -10,35 +11,34 @@ enum State {
 }
 
 var state: State = State.INITIAL
-var attack_amplitude:float = 32.0
-var attack_speed: float = 7.0
+var attack_amplitude:float = 16.0
+var attack_speed: float = 6.0
 var time_between_decisions: float = 3.0 # in seconds
 
 signal damage_player(amount: int)
+signal enemy_died
 
-var attack_damage: float = 8.0
-var health: float = 10.0
+var attack_damage: float = 9.0
+var health: float = 4.0
 var is_dead: bool = false
 
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var battle_decision_timer: Timer = $BattleDecisionTimer
 
+
 func _ready() -> void:
+	sprite.reset_amplitude()
+	sprite.reset_speed()
 	battle_decision_timer.wait_time = time_between_decisions
 	_enter_state(State.IDLE)
 	
 func die():
-	is_dead = true
 	sprite.set_speed(0)
 	sprite.set_amplitude(0)
 	battle_decision_timer.stop()
 	_enter_state(State.DEAD)
 
 func _physics_process(delta: float) -> void:
-	if is_dead and state != State.DEAD:
-		print("DENY ENTER STATE BECAUSE DEAD")
-		return
-		
 	match state:
 		State.IDLE:
 			_update_idle(delta)
@@ -47,10 +47,24 @@ func _physics_process(delta: float) -> void:
 		State.ATTACK:
 			_update_attack(delta)
 		State.DEAD:
+			if is_dead:
+				#print("DENY DEAD STATE UPDATE: " + str(State.keys()[state]))
+				return
 			_update_dead(delta)
+		State.WAITING_FOR_BATTLE:
+			#print("DO NOTHING WE ARE WAITING: " + str(State.keys()[state]))
+			pass # Do nothing we're just waiting and parent will disable our processing soon
 
-
-# --- Public helpers you can call from other scripts / signals ---
+# All the things to reset enemy back to beginning of battle
+func enter_battle():
+	_enter_state(State.IDLE)
+	is_dead = false
+	sprite.modulate.a = 1.0
+	sprite.rotation = 0.0
+	sprite.reset_amplitude()
+	sprite.reset_speed()
+	battle_decision_timer.start()  # Ensure timer ready
+	print("enemy entering battle. hp: " + str(health) + ", atk: " + str(attack_damage))
 
 func start_attack() -> void:
 	if state == State.DEAD:
@@ -61,7 +75,6 @@ func kill() -> void:
 	_enter_state(State.DEAD)
 
 
-# --- State logic ---
 
 func _enter_state(new_state: State) -> void:
 	if state == new_state:
@@ -111,8 +124,9 @@ func _update_attack(_delta: float) -> void:
 
 func _update_dead(_delta: float) -> void:
 	# Play dead animation
-	if not sprite.is_playing():
-		sprite.play("dead")  # your dead anim
+	is_dead = true
+
+	sprite.play("dead")
 	
 	# Create tween
 	var tween = create_tween()
@@ -125,11 +139,15 @@ func _update_dead(_delta: float) -> void:
 	tween.set_trans(Tween.TRANS_SINE)
 	tween.set_ease(Tween.EASE_IN_OUT)
 	
-	# Free when done
-	tween.tween_callback(queue_free)
+	# Cleanup when done
+	tween.tween_callback(cleanup)
 
 
-
+func cleanup():
+	print("cleanup!")
+	enemy_died.emit()
+	_enter_state(State.WAITING_FOR_BATTLE)
+	#queue_free() # if we queue_free() we can't reuse for next battle
 
 func _on_battle_decision_timer_timeout() -> void:
 	#print("ENEMY MAKING DECISION")

@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://nvlf4e5g4lt1" path="res://sprites/pov/s_pov_left_to_forward_strip8.png" id="8_80cx4"]
 [ext_resource type="Texture2D" uid="uid://ck82w8ir2wjkt" path="res://sprites/pov/s_pov_right_to_forward_strip8.png" id="9_e8heu"]
 [ext_resource type="PackedScene" uid="uid://bxxua8kskjoa8" path="res://scenes/hud.tscn" id="10_hve3p"]
+[ext_resource type="PackedScene" uid="uid://den8fjg8e55w6" path="res://battle-engine/battle-engine.tscn" id="11_mfdv2"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_rvswv"]
 atlas = ExtResource("2_hve3p")
@@ -581,5 +582,10 @@ theme_override_constants/margin_bottom = 5
 layout_mode = 2
 metadata/_edit_use_anchors_ = true
 
+[node name="BattleManager" type="Node2D" parent="." unique_id=2137862089]
+
+[node name="BattleEngine" parent="BattleManager" unique_id=1649322611 instance=ExtResource("11_mfdv2")]
+
 [connection signal="animation_finished" from="Box/Pov/PovSprite" to="." method="_on_pov_sprite_animation_finished"]
 [connection signal="frame_changed" from="Box/Pov/PovSprite" to="." method="_on_pov_sprite_frame_changed"]
+[connection signal="battle_ended" from="BattleManager/BattleEngine" to="." method="_on_battle_engine_battle_ended"]

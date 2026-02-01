@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://vinwih6qwgcw" path="res://battle-engine/battle_engine.gd" id="1_8pl44"]
 [ext_resource type="PackedScene" uid="uid://dhims8tyq2wja" path="res://battle-engine/enemy.tscn" id="1_x7rji"]
 [ext_resource type="Script" uid="uid://desyp6laandb" path="res://battle-engine/attack-button.gd" id="2_baey7"]
+[ext_resource type="FontFile" uid="uid://c2twup1t6e74t" path="res://sprites/large/angel_wish.otf" id="3_vvyhw"]
 [ext_resource type="Texture2D" uid="uid://7k5cdui1g1sq" path="res://battle-engine/assets/purple-attack-anim.png" id="4_18kkk"]
 [ext_resource type="Texture2D" uid="uid://b0b30fqweqifj" path="res://battle-engine/assets/temp_shield-Transparent.png" id="5_7xprn"]
 [ext_resource type="Script" uid="uid://dl4o26mtevkpc" path="res://battle-engine/player_attack_sprite.gd" id="6_ct57k"]
@@ -118,34 +119,35 @@ animations = [{
 }],
 "loop": false,
 "name": &"defend",
-"speed": 9.0
+"speed": 18.0
 }]
 
 [node name="BattleEngine" type="Node2D" unique_id=1649322611]
 script = ExtResource("1_8pl44")
 
 [node name="Panel" type="Panel" parent="." unique_id=139991779]
-offset_right = 960.0
-offset_bottom = 448.0
+offset_right = 480.0
+offset_bottom = 256.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_pv81d")
 
 [node name="Panel2" type="Panel" parent="." unique_id=1269732057]
-offset_top = 448.0
-offset_right = 960.0
-offset_bottom = 544.0
+offset_top = 256.0
+offset_right = 480.0
+offset_bottom = 336.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_pv81d")
 
 [node name="Enemy" parent="." unique_id=179599551 instance=ExtResource("1_x7rji")]
-position = Vector2(480, 224)
-scale = Vector2(4, 4)
+position = Vector2(256, 144)
+scale = Vector2(3, 3)
 
 [node name="AttackButton" type="Button" parent="." unique_id=1001528584]
-offset_left = 384.0
-offset_top = 464.0
-offset_right = 576.0
-offset_bottom = 512.0
+offset_left = 208.0
+offset_top = 280.0
+offset_right = 304.0
+offset_bottom = 313.0
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_font_sizes/font_size = 32
+theme_override_fonts/font = ExtResource("3_vvyhw")
+theme_override_font_sizes/font_size = 22
 theme_override_styles/normal = SubResource("StyleBoxFlat_8pl44")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_8pl44")
 theme_override_styles/hover = SubResource("StyleBoxFlat_8pl44")
@@ -157,43 +159,87 @@ script = ExtResource("2_baey7")
 
 [node name="PlayerAttackSprite" type="AnimatedSprite2D" parent="." unique_id=199110083]
 modulate = Color(1, 1, 1, 0.78039217)
-position = Vector2(480, 224)
-scale = Vector2(6, 6)
+position = Vector2(248, 152)
+scale = Vector2(2.5, 2.5)
 sprite_frames = SubResource("SpriteFrames_hvo25")
 animation = &"defend"
 script = ExtResource("6_ct57k")
 
 [node name="PlayerHealthBar" parent="." unique_id=1631433104 instance=ExtResource("7_ct57k")]
-offset_left = 88.00001
-offset_top = 509.0
-offset_right = 128.01431
-offset_bottom = 543.0703
-scale = Vector2(6.39771, -1.1740428)
+offset_left = 48.0
+offset_top = 304.0
+offset_right = 88.01431
+offset_bottom = 356.85834
+scale = Vector2(3.1977098, -0.4540441)
 
 [node name="EnemyHealthBar" parent="." unique_id=207078053 instance=ExtResource("7_ct57k")]
 custom_minimum_size = Vector2(100, 100)
-offset_left = 648.0
-offset_top = 208.0
-offset_right = 748.0
-offset_bottom = 308.0
-scale = Vector2(2.5489182, 0.4266063)
+offset_left = 272.0
+offset_top = 16.0
+offset_right = 372.0
+offset_bottom = 179.7038
+scale = Vector2(1.2689183, 0.1466063)
 
 [node name="PlayerLabelHp" type="Label" parent="." unique_id=1349741756]
-offset_left = 24.0
-offset_top = 464.0
-offset_right = 68.0
-offset_bottom = 509.0
-theme_override_font_sizes/font_size = 32
+offset_left = 16.0
+offset_top = 280.0
+offset_right = 40.0
+offset_bottom = 304.0
+theme_override_fonts/font = ExtResource("3_vvyhw")
+theme_override_font_sizes/font_size = 22
 text = "HP"
 
 [node name="EnemyLabelHp" type="Label" parent="." unique_id=1694176442]
-offset_left = 680.0
-offset_top = 152.0
-offset_right = 841.0
-offset_bottom = 197.0
-theme_override_font_sizes/font_size = 32
+offset_left = 152.0
+offset_top = 16.0
+offset_right = 240.0
+offset_bottom = 40.0
+theme_override_fonts/font = ExtResource("3_vvyhw")
+theme_override_font_sizes/font_size = 22
 text = "ENEMY HP"
 
+[node name="VictoryPanel" type="Panel" parent="." unique_id=1678412722]
+visible = false
+offset_right = 480.0
+offset_bottom = 256.0
+scale = Vector2(1, 1.3199999)
+theme_override_styles/panel = SubResource("StyleBoxFlat_pv81d")
+
+[node name="VictoryLabel" type="Label" parent="VictoryPanel" unique_id=1763408161]
+layout_mode = 0
+offset_left = 152.0
+offset_top = 48.484848
+offset_right = 334.0
+offset_bottom = 96.48485
+theme_override_fonts/font = ExtResource("3_vvyhw")
+theme_override_font_sizes/font_size = 48
+text = "VICTORY..."
+
+[node name="ForNowLabel" type="Label" parent="VictoryPanel" unique_id=1162252228]
+layout_mode = 0
+offset_left = 264.0
+offset_top = 115.15153
+offset_right = 446.0
+offset_bottom = 163.15152
+theme_override_fonts/font = ExtResource("3_vvyhw")
+theme_override_font_sizes/font_size = 32
+text = "FOR NOW"
+
+[node name="LevelUpLabel" type="Label" parent="VictoryPanel" unique_id=936721819]
+layout_mode = 0
+offset_left = 152.0
+offset_top = 163.63638
+offset_right = 334.0
+offset_bottom = 211.63638
+theme_override_fonts/font = ExtResource("3_vvyhw")
+theme_override_font_sizes/font_size = 32
+text = "LEVEL UP +1"
+
+[node name="VictoryScreenTimer" type="Timer" parent="." unique_id=7332980]
+one_shot = true
+
 [connection signal="damage_player" from="Enemy" to="." method="_on_enemy_damage_player"]
+[connection signal="enemy_died" from="Enemy" to="." method="_on_enemy_enemy_died"]
 [connection signal="animation_finished" from="PlayerAttackSprite" to="PlayerAttackSprite" method="_on_animation_finished"]
 [connection signal="damage_enemy" from="PlayerAttackSprite" to="." method="_on_player_attack_sprite_damage_enemy"]
+[connection signal="timeout" from="VictoryScreenTimer" to="." method="_on_victory_screen_timer_timeout"]

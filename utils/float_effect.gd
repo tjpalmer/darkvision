@@ -4,7 +4,7 @@ extends Node2D
 var _base_position: Vector2
 var _time: float = 1.0
 var _initial_amplitude = 6.0
-var _initial_speed = 4.0
+var _initial_speed = 6.0
 
 @export var amplitude: float = _initial_amplitude	# how far it moves up/down in pixels
 @export var speed: float = _initial_speed		# how fast it bobs
