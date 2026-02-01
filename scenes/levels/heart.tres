@@ -1,0 +1,14 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://bxe7umbyn25xx"]
+
+[ext_resource type="Texture2D" uid="uid://di8s0am3ax6nc" path="res://sprites/support/heart.webp" id="1_74pdv"]
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_74pdv")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]

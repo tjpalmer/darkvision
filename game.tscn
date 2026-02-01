@@ -9,9 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://cpk2xqwtm36sv" path="res://sprites/pov/s_pov_forward_to_right_B_strip8.png" id="7_7sc4i"]
 [ext_resource type="Texture2D" uid="uid://nvlf4e5g4lt1" path="res://sprites/pov/s_pov_left_to_forward_strip8.png" id="8_80cx4"]
 [ext_resource type="Texture2D" uid="uid://ck82w8ir2wjkt" path="res://sprites/pov/s_pov_right_to_forward_strip8.png" id="9_e8heu"]
-[ext_resource type="Texture2D" uid="uid://dac4p8erluqq7" path="res://sprites/large/darkvision_logo.webp" id="10_iotsf"]
-[ext_resource type="Texture2D" uid="uid://baatnjkn0ndeb" path="res://sprites/large/inventory_ui.png" id="11_lc2xo"]
-[ext_resource type="Texture2D" uid="uid://ks37ykns8t11" path="res://sprites/large/move_health_ui.png" id="12_215e1"]
+[ext_resource type="PackedScene" uid="uid://bxxua8kskjoa8" path="res://scenes/hud.tscn" id="10_hve3p"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_rvswv"]
 atlas = ExtResource("2_hve3p")
@@ -550,31 +548,36 @@ animations = [{
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_top = -1.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 1)
 script = ExtResource("1_vef74")
 
-[node name="PovSprite" type="AnimatedSprite2D" parent="." unique_id=693293025]
-position = Vector2(224, 171.37502)
-scale = Vector2(4.6666665, 5.9525857)
+[node name="Box" type="VBoxContainer" parent="." unique_id=1257718968]
+layout_mode = 0
+offset_right = 480.0
+offset_bottom = 294.0
+
+[node name="Pov" type="Control" parent="Box" unique_id=1268572087]
+custom_minimum_size = Vector2(480, 290)
+layout_mode = 2
+
+[node name="PovSprite" type="AnimatedSprite2D" parent="Box/Pov" unique_id=693293025]
+scale = Vector2(5, 5)
 sprite_frames = SubResource("SpriteFrames_vqo61")
 animation = &"pov_forward_to_left_A"
+centered = false
 
-[node name="DarkvisionLogo" type="Sprite2D" parent="." unique_id=2023971370]
-position = Vector2(224, 416.00003)
-scale = Vector2(0.24999997, 0.23230082)
-texture = ExtResource("10_iotsf")
+[node name="Margins" type="MarginContainer" parent="Box" unique_id=1262756766]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_bottom = 5
 
-[node name="InventoryUi" type="Sprite2D" parent="." unique_id=20794989]
-position = Vector2(828, 267.25)
-scale = Vector2(1.4090909, 1.7508143)
-texture = ExtResource("11_lc2xo")
+[node name="Hud" parent="Box/Margins" unique_id=317957329 instance=ExtResource("10_hve3p")]
+layout_mode = 2
+metadata/_edit_use_anchors_ = true
 
-[node name="MoveHealthUi" type="Sprite2D" parent="." unique_id=302895895]
-position = Vector2(575, 268.75)
-scale = Vector2(1.5731708, 1.7757475)
-texture = ExtResource("12_215e1")
-
-[connection signal="animation_finished" from="PovSprite" to="." method="_on_pov_sprite_animation_finished"]
-[connection signal="frame_changed" from="PovSprite" to="." method="_on_pov_sprite_frame_changed"]
+[connection signal="animation_finished" from="Box/Pov/PovSprite" to="." method="_on_pov_sprite_animation_finished"]
+[connection signal="frame_changed" from="Box/Pov/PovSprite" to="." method="_on_pov_sprite_frame_changed"]

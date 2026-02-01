@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://p4ylr0nyxwrc"]
+
+[ext_resource type="Script" uid="uid://qgaf2ewuj4hw" path="res://scenes/level.gd" id="1_w8frs"]
+[ext_resource type="FontFile" uid="uid://c2twup1t6e74t" path="res://sprites/large/angel_wish.otf" id="2_w8frs"]
+
+[node name="Level" type="HBoxContainer" unique_id=1198524218]
+size_flags_horizontal = 3
+script = ExtResource("1_w8frs")
+
+[node name="Icon" type="Control" parent="." unique_id=1631411229]
+custom_minimum_size = Vector2(38, 40)
+layout_mode = 2
+
+[node name="Sprite" type="AnimatedSprite2D" parent="Icon" unique_id=763528380]
+position = Vector2(20, 20)
+
+[node name="Margins" type="MarginContainer" parent="." unique_id=64592335]
+layout_mode = 2
+theme_override_constants/margin_top = 7
+
+[node name="Label" type="Label" parent="Margins" unique_id=1806325939]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_fonts/font = ExtResource("2_w8frs")
+theme_override_font_sizes/font_size = 32
+text = "100"

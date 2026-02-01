@@ -1,0 +1,14 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://kegigd0vt0sg"]
+
+[ext_resource type="Texture2D" uid="uid://b3jpvw11rwy7u" path="res://sprites/support/sword.webp" id="1_grupp"]
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_grupp")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
