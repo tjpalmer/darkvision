@@ -18,7 +18,7 @@ var time_between_decisions: float = 1.5 # in seconds
 signal damage_player(amount: int)
 signal enemy_died
 
-var attack_damage: float = 14.0
+var attack_damage: float = 21.0
 var health: float = 55
 var is_dead: bool = false
 
