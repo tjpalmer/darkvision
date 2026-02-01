@@ -1,0 +1,122 @@
+[gd_scene format=3 uid="uid://bvebno7bwgmlc"]
+
+[ext_resource type="Script" uid="uid://7trq3nfg517c" path="res://battle-engine/lich_enemy.gd" id="1_ivxw4"]
+[ext_resource type="Texture2D" uid="uid://bor4ui67j470n" path="res://sprites/enemies/eye_battle.webp" id="2_k2v0x"]
+[ext_resource type="Texture2D" uid="uid://brap0if7v0fdj" path="res://sprites/enemies/eye.webp" id="3_gxf5a"]
+[ext_resource type="Script" uid="uid://b1ma7arxd85rt" path="res://utils/float_effect.gd" id="4_tktml"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q8b3y"]
+atlas = ExtResource("2_k2v0x")
+region = Rect2(32, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ibvch"]
+atlas = ExtResource("2_k2v0x")
+region = Rect2(0, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_klcwe"]
+atlas = ExtResource("2_k2v0x")
+region = Rect2(32, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h4kyv"]
+atlas = ExtResource("2_k2v0x")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ivrk3"]
+atlas = ExtResource("2_k2v0x")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d01aa"]
+atlas = ExtResource("2_k2v0x")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xnhwg"]
+atlas = ExtResource("2_k2v0x")
+region = Rect2(32, 32, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_xnhwg"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q8b3y")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ibvch")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_klcwe")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h4kyv")
+}],
+"loop": false,
+"name": &"attack",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ivrk3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ivrk3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ivrk3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ivrk3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ivrk3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ivrk3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ivrk3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ivrk3")
+}],
+"loop": false,
+"name": &"dead",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_gxf5a")
+}],
+"loop": false,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d01aa")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xnhwg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d01aa")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xnhwg")
+}],
+"loop": false,
+"name": &"wind_up",
+"speed": 6.0
+}]
+
+[node name="LichEnemy" type="Node2D" unique_id=179599551]
+script = ExtResource("1_ivxw4")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1490329940]
+sprite_frames = SubResource("SpriteFrames_xnhwg")
+animation = &"wind_up"
+script = ExtResource("4_tktml")
+
+[node name="BattleDecisionTimer" type="Timer" parent="." unique_id=1840637788]
+wait_time = 2.0
+one_shot = true
+
+[connection signal="timeout" from="BattleDecisionTimer" to="." method="_on_battle_decision_timer_timeout"]

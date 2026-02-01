@@ -1,7 +1,8 @@
 extends Node2D
 
 @onready var attack_button = $AttackButton
-@onready var enemy: Node2D = $Enemy
+@onready var common_enemy: Node2D = $Enemy
+#@onready var lich_enemy: Node2D = $LichEnemy
 @onready var enemy_healthbar: Control = $EnemyHealthBar
 @onready var player_healthbar: Control = $PlayerHealthBar
 @onready var player_sprite: AnimatedSprite2D = $PlayerAttackSprite
@@ -16,25 +17,38 @@ extends Node2D
 @onready var battle_status_label: Label = $BattleStatusLabel
 @onready var battle_status_timer: Timer = $BattleStatusTimer
 
+var lich_scene: PackedScene = preload("res://battle-engine/lich_enemy.tscn")
+
 var has_init: bool = false
 var victory: bool = false;
 var victory_timer_count: int = 0
 var you_died_timer_count: int = 0
 var player_is_dead: bool = false
+var is_final_boss_battle: bool = false
 
 var which_bgm_to_play = 0 # 0 for 1st bgm, 1 for 2nd bgm currently swapping back and forth every combat
 #var should_play_bgm = false
 
 signal battle_ended
 
+var enemy: Node2D
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	_end_battle()
+
+func _init_battle(is_final_boss: bool = false):
+	if !is_final_boss:
+		enemy = common_enemy
+	else:
+		print("Ffight the lich!")
+		common_enemy.queue_free()
+		enemy = lich_scene.instantiate()
+	
 	var center := get_viewport_rect().size / 2.0
 	enemy.position.x = center.x
 	player_sprite.position.x = center.x
-	_end_battle()
-
-func _init_battle():
+	is_final_boss_battle = is_final_boss
 	attack_button.disabled = false
 	died_for_now_label.visible = false
 	died_level_down_label.visible = false
@@ -49,12 +63,13 @@ func _init_battle():
 	you_died_screen_timer.stop()
 	#print("INIT BATTLE")
 	attack_button.init()
-	enemy.enter_battle()
 	victory_panel.visible = false
 	you_died_panel.visible = false
 	process_mode = Node.PROCESS_MODE_INHERIT
 	visible = true
 	#print("enemy health set to " + str(enemy.health))
+	
+	enemy.enter_battle()
 	enemy_healthbar.set_max_health(enemy.health)
 	enemy_healthbar.set_health(enemy.health)
 	#print("player health set to " + str(PlayerStats.health))

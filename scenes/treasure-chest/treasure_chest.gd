@@ -7,7 +7,7 @@ extends Node2D
 
 var heart_should_rise: bool = false
 var heart_is_rising: bool = false
-var heart_pieces_gained: int = randi_range(7, 19)
+var heart_pieces_gained: int = 666  #randi_range(7, 19)
 
 signal player_gain_hearts(amount: int)
 
@@ -23,11 +23,11 @@ func _ready() -> void:
 
 
 func player_gain_piece():
-	player_gain_hearts.emit(heart_pieces_gained)
+	player_gain_hearts.emit(min(666, PlayerStats.heart_pieces + heart_pieces_gained)) # dont allow over 100
 	queue_free()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if heart_should_rise:
 		rise_and_fade(heart_piece_group, player_gain_piece)
 

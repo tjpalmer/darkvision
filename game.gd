@@ -7,8 +7,8 @@ const enemy_scale_max := 5.0
 const enemy_scale_frame := enemy_scale_max / pov_frame_count_scale
 const enemy_pos_frame := 1.0 / pov_frame_count_scale
 
-var treasure_spawn_chance: float = 0.5
-var enemy_spawn_chance: float = 0.4
+var treasure_spawn_chance: float = 1.0 # 0.5
+var enemy_spawn_chance: float = 0.0 # 0.4
 var should_spawn_chest_on_stop: float = false
 
 @onready var battle_manager: Node2D = $BattleManager
@@ -82,7 +82,15 @@ func _process(_delta: float):
 func _on_player_gain_hearts(hearts: int):
 	PlayerStats.heart_pieces += hearts
 	_update_player_stats()
+	
 	is_event_happening = false
+	
+	#print("PLAYER HAS PIECES: " + str(PlayerStats.heart_pieces))
+	if PlayerStats.heart_pieces >= 666:
+		print("trigger battle")
+		trigger_battle(true)
+		return
+		
 	# Your handler code here
 	
 
@@ -290,7 +298,7 @@ func _update_enemy_transform(frame := pov_sprite.frame as float):
 		trigger_battle()
 
 
-func trigger_battle():
+func trigger_battle(is_final_boss: bool = false):
 	if is_event_happening:
 		#print("event happening no trigger_battle")
 		return
@@ -305,7 +313,7 @@ func trigger_battle():
 	#move_button_control.process = PROCESS_MODE_DISABLED
 	is_event_happening = true
 	battle_manager.visible = true
-	battle_engine._init_battle()
+	battle_engine._init_battle(is_final_boss)
 	world_box.visible = false
 	world_box.process_mode = Node.PROCESS_MODE_DISABLED
 	
