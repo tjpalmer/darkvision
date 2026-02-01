@@ -23,6 +23,9 @@ signal battle_ended
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	var center := get_viewport_rect().size / 2.0
+	enemy.position.x = center.x
+	player_sprite.position.x = center.x
 	_end_battle()
 
 func _init_battle():
@@ -109,9 +112,9 @@ func _on_victory_screen_timer_timeout() -> void:
 	#print("victory count: " + str(victory_timer_count))
 	
 	if which_bgm_to_play == 1:
-		SoundManager.fade_out_and_stop("combat_bgm", 5.0)
+		SoundManager.fade_out_and_stop("combat_bgm", 7.0)
 	else:
-		SoundManager.fade_out_and_stop("combat_bgm_alt", 5.0)
+		SoundManager.fade_out_and_stop("combat_bgm_alt", 7.0)
 	
 	match victory_timer_count:
 		1:

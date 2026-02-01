@@ -4,8 +4,8 @@
 [ext_resource type="PackedScene" uid="uid://dhims8tyq2wja" path="res://battle-engine/enemy.tscn" id="1_x7rji"]
 [ext_resource type="Script" uid="uid://desyp6laandb" path="res://battle-engine/attack-button.gd" id="2_baey7"]
 [ext_resource type="FontFile" uid="uid://c2twup1t6e74t" path="res://sprites/large/angel_wish.otf" id="3_vvyhw"]
-[ext_resource type="Texture2D" uid="uid://7k5cdui1g1sq" path="res://battle-engine/assets/purple-attack-anim.png" id="4_18kkk"]
 [ext_resource type="Texture2D" uid="uid://b0b30fqweqifj" path="res://battle-engine/assets/temp_shield-Transparent.png" id="5_7xprn"]
+[ext_resource type="Texture2D" uid="uid://bslywpf3gxu7p" path="res://battle-engine/assets/swirly-effects.png" id="5_vvyhw"]
 [ext_resource type="Script" uid="uid://dl4o26mtevkpc" path="res://battle-engine/player_attack_sprite.gd" id="6_ct57k"]
 [ext_resource type="PackedScene" uid="uid://fr2jui8rhy5d" path="res://scenes/healthbar/HealthBar.tscn" id="7_ct57k"]
 
@@ -27,61 +27,57 @@ border_color = Color(1, 1, 1, 1)
 
 [sub_resource type="ImageTexture" id="ImageTexture_8pl44"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_i48og"]
-atlas = ExtResource("4_18kkk")
-region = Rect2(0, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_7xprn"]
-atlas = ExtResource("4_18kkk")
-region = Rect2(32, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ct57k"]
-atlas = ExtResource("4_18kkk")
-region = Rect2(64, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_vvyhw"]
-atlas = ExtResource("4_18kkk")
-region = Rect2(96, 0, 32, 32)
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_qvgsq"]
-atlas = ExtResource("4_18kkk")
-region = Rect2(128, 0, 32, 32)
+atlas = ExtResource("5_vvyhw")
+region = Rect2(0, 320, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jwwkx"]
-atlas = ExtResource("4_18kkk")
-region = Rect2(160, 0, 32, 32)
+atlas = ExtResource("5_vvyhw")
+region = Rect2(64, 320, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_d3ap1"]
-atlas = ExtResource("4_18kkk")
-region = Rect2(0, 32, 32, 32)
+atlas = ExtResource("5_vvyhw")
+region = Rect2(128, 320, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_h1qga"]
-atlas = ExtResource("4_18kkk")
-region = Rect2(32, 32, 32, 32)
+atlas = ExtResource("5_vvyhw")
+region = Rect2(192, 320, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_drguc"]
-atlas = ExtResource("4_18kkk")
-region = Rect2(64, 32, 32, 32)
+atlas = ExtResource("5_vvyhw")
+region = Rect2(256, 320, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2u0k4"]
-atlas = ExtResource("4_18kkk")
-region = Rect2(96, 32, 32, 32)
+atlas = ExtResource("5_vvyhw")
+region = Rect2(320, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hvo25"]
+atlas = ExtResource("5_vvyhw")
+region = Rect2(384, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fjoo2"]
+atlas = ExtResource("5_vvyhw")
+region = Rect2(448, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_51t5q"]
+atlas = ExtResource("5_vvyhw")
+region = Rect2(512, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t308x"]
+atlas = ExtResource("5_vvyhw")
+region = Rect2(576, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qf23q"]
+atlas = ExtResource("5_vvyhw")
+region = Rect2(640, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kolqr"]
+atlas = ExtResource("5_vvyhw")
+region = Rect2(704, 320, 64, 64)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_hvo25"]
 animations = [{
 "frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_i48og")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_7xprn")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ct57k")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_vvyhw")
-}, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_qvgsq")
 }, {
@@ -99,10 +95,28 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_2u0k4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hvo25")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fjoo2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_51t5q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t308x")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qf23q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kolqr")
 }],
 "loop": false,
 "name": &"attack",
-"speed": 10.0
+"speed": 20.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -137,7 +151,7 @@ offset_bottom = 336.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_pv81d")
 
 [node name="Enemy" parent="." unique_id=179599551 instance=ExtResource("1_x7rji")]
-position = Vector2(248, 144)
+position = Vector2(232.00002, 144)
 scale = Vector2(3, 3)
 
 [node name="AttackButton" type="Button" parent="." unique_id=1001528584]
@@ -162,7 +176,9 @@ modulate = Color(1, 1, 1, 0.78039217)
 position = Vector2(240.00002, 152)
 scale = Vector2(2.5, 2.5)
 sprite_frames = SubResource("SpriteFrames_hvo25")
-animation = &"defend"
+animation = &"attack"
+frame = 11
+frame_progress = 1.0
 script = ExtResource("6_ct57k")
 
 [node name="PlayerHealthBar" parent="." unique_id=1631433104 instance=ExtResource("7_ct57k")]

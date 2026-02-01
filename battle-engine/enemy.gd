@@ -13,7 +13,7 @@ enum State {
 var state: State = State.INITIAL
 var attack_amplitude:float = 16.0
 var attack_speed: float = 6.0
-var time_between_decisions: float = 3.0 # in seconds
+var time_between_decisions: float = 2.0 # in seconds
 
 signal damage_player(amount: int)
 signal enemy_died
