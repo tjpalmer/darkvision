@@ -56,8 +56,9 @@ var current_action: String = ""  # "forward", "turn_left", "turn_right"
 
 var enemy_is_present: bool = false
 
-var treasure_spawn_chance: float = 1.0
-var enemy_spawn_chance: float = 0.0
+var treasure_spawn_chance: float = 0.33
+var enemy_spawn_chance: float = 0.33
+var should_spawn_chest_on_stop: float = false
 
 @onready var pov_sprite: AnimatedSprite2D = $Box/Pov/PovSprite
 # Optional background:
@@ -82,6 +83,10 @@ func _stop_at_next_cell() -> void:
 	if is_event_happening:
 		print("event happening no stop at next cell")
 		return
+		
+	if should_spawn_chest_on_stop:
+		do_spawn_chest()
+		should_spawn_chest_on_stop = false	
 		
 	_update_player_stats()
 	var sprite_id: int = cell_array[current_cell]
@@ -236,6 +241,9 @@ func try_spawn_chest():
 	if rando > treasure_spawn_chance:
 		return
 	
+	should_spawn_chest_on_stop = true
+	
+func do_spawn_chest():
 	# Spawn chest
 	current_chest = CHEST_SCENE.instantiate()
 	print("SPAWNED CHEST")
