@@ -141,9 +141,9 @@ position = Vector2(256, 144)
 scale = Vector2(3, 3)
 
 [node name="AttackButton" type="Button" parent="." unique_id=1001528584]
-offset_left = 208.0
+offset_left = 200.0
 offset_top = 280.0
-offset_right = 304.0
+offset_right = 296.0
 offset_bottom = 313.0
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("3_vvyhw")
@@ -159,7 +159,7 @@ script = ExtResource("2_baey7")
 
 [node name="PlayerAttackSprite" type="AnimatedSprite2D" parent="." unique_id=199110083]
 modulate = Color(1, 1, 1, 0.78039217)
-position = Vector2(248, 152)
+position = Vector2(248, 152.00002)
 scale = Vector2(2.5, 2.5)
 sprite_frames = SubResource("SpriteFrames_hvo25")
 animation = &"defend"
