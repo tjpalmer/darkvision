@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://u7yginhubc0"]
 
-[ext_resource type="Shader" uid="uid://dlo20x06tncf7" path="res://scenes/floater.gdshader" id="1_817ua"]
+[ext_resource type="Shader" uid="uid://dlo20x06tncf7" path="res://shader/floater.gdshader" id="1_817ua"]
 [ext_resource type="Script" uid="uid://kt2p234piug0" path="res://scenes/enemy.gd" id="1_kyxgt"]
 [ext_resource type="Texture2D" uid="uid://brap0if7v0fdj" path="res://sprites/enemies/eye.webp" id="2_ah3cm"]
 

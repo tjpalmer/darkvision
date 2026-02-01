@@ -137,7 +137,7 @@ offset_bottom = 336.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_pv81d")
 
 [node name="Enemy" parent="." unique_id=179599551 instance=ExtResource("1_x7rji")]
-position = Vector2(256, 144)
+position = Vector2(248, 144)
 scale = Vector2(3, 3)
 
 [node name="AttackButton" type="Button" parent="." unique_id=1001528584]
@@ -159,7 +159,7 @@ script = ExtResource("2_baey7")
 
 [node name="PlayerAttackSprite" type="AnimatedSprite2D" parent="." unique_id=199110083]
 modulate = Color(1, 1, 1, 0.78039217)
-position = Vector2(248, 152.00002)
+position = Vector2(240.00002, 152)
 scale = Vector2(2.5, 2.5)
 sprite_frames = SubResource("SpriteFrames_hvo25")
 animation = &"defend"

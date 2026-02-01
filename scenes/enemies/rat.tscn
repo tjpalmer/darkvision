@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://bt8fikqiqfr2t"]
 
 [ext_resource type="Script" uid="uid://buoox8eijjjyf" path="res://scenes/enemies/rat.gd" id="1_l3lpa"]
-[ext_resource type="Shader" uid="uid://dlo20x06tncf7" path="res://scenes/floater.gdshader" id="2_orb1r"]
+[ext_resource type="Shader" uid="uid://dlo20x06tncf7" path="res://shader/floater.gdshader" id="2_orb1r"]
 [ext_resource type="Texture2D" uid="uid://led0ejptuqum" path="res://sprites/enemies/rat.webp" id="3_l3lpa"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_817ua"]

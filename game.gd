@@ -11,7 +11,9 @@ const enemy_pos_frame := 1.0 / pov_frame_count_scale
 @onready var battle_engine: Node2D = $BattleManager/BattleEngine
 @onready var hud: Control = $Box/Margins/Hud
 @onready var world_box: VBoxContainer = $Box
-@onready var move_button: Button = $Box/MoveButtonControl/MoveButton
+@onready var move_button_control: Control = $MoveButtonControl
+@onready var move_button: Button = $MoveButtonControl/MoveButton
+@onready var pulsing_light_ring: ColorRect = $PulsingLightRing
 
 var is_event_happening: bool = false
 
@@ -294,6 +296,9 @@ func trigger_battle():
 		current_enemy.queue_free()
 		current_enemy = null
 		
+	move_button_control.visible = false
+	pulsing_light_ring.visible = false
+	#move_button_control.process = PROCESS_MODE_DISABLED
 	is_event_happening = true
 	battle_manager.visible = true
 	battle_engine._init_battle()
@@ -307,6 +312,9 @@ func battle_ended():
 		print("battle_ended but is_event_happening = " + str(is_event_happening))
 		return
 		
+	move_button_control.visible = true
+	pulsing_light_ring.visible = true
+	#move_button_control.process = PROCESS_MODE_INHERIT
 	PlayerStats.level += 1
 	world_box.visible = true
 	world_box.process_mode = Node.PROCESS_MODE_INHERIT
