@@ -115,13 +115,10 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": ExtResource("5_7xprn")
-}, {
-"duration": 1.0,
-"texture": ExtResource("5_7xprn")
 }],
 "loop": false,
 "name": &"defend",
-"speed": 1.0
+"speed": 9.0
 }]
 
 [node name="BattleEngine" type="Node2D" unique_id=1649322611]
@@ -199,3 +196,4 @@ text = "ENEMY HP"
 
 [connection signal="damage_player" from="Enemy" to="." method="_on_enemy_damage_player"]
 [connection signal="animation_finished" from="PlayerAttackSprite" to="PlayerAttackSprite" method="_on_animation_finished"]
+[connection signal="damage_enemy" from="PlayerAttackSprite" to="." method="_on_player_attack_sprite_damage_enemy"]

@@ -8,7 +8,7 @@ var max_mana: int = 50
 var level: int = 1
 var experience: int = 0
 var mask_pieces: int = 0
-var attack_damage: float = 6.0
+var attack_damage: float = 4.0
 
 # Convenience helpers
 func heal(amount: int):

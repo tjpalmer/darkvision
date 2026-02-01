@@ -5,6 +5,8 @@ var _elapsed := 0.0
 var _start_scale := Vector2.ONE
 var _starting_position: Vector2 = position
 
+signal damage_enemy
+
 
 func _ready():
 	_start_scale = scale
@@ -25,6 +27,9 @@ func play_anim(animation_name: String) -> bool:
 
 	reset_all()
 	play(animation_name)
+	
+	if animation == "attack":
+		damage_enemy.emit()
 	
 	if animation_name == "defend":
 		position.y += 128 # hacky positiong defend anim closer to player / bottom of view

@@ -32,4 +32,4 @@ func _update_bar():
 	var ratio: float = float(current_health) / float(max_health)
 	var full_width: float = size.x  # Use size.x — the correct property!
 	fill.size.x = full_width * ratio
-	print("ratio: " + str(ratio) + ", full_width: " + str(full_width) + ", fill.size.x: " + str(fill.size.x))
+	#print("ratio: " + str(ratio) + ", full_width: " + str(full_width) + ", fill.size.x: " + str(fill.size.x))
