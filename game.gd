@@ -88,6 +88,7 @@ func _on_player_gain_hearts(hearts: int):
 	
 	#print("PLAYER HAS PIECES: " + str(PlayerStats.heart_pieces))
 	if PlayerStats.heart_pieces >= 666:
+		PlayerStats.level += 5 # TODO IS THIS TOO MUCH LEVEL UP?
 		print("trigger battle")
 		trigger_battle(true)
 		return

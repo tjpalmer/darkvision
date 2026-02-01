@@ -18,8 +18,8 @@ var time_between_decisions: float = 1.5 # in seconds
 signal damage_player(amount: int)
 signal enemy_died
 
-var attack_damage: float = 9.0
-var health: float = 5.0
+var attack_damage: float = 1 # TODO CHANGE BACK TO 14.0
+var health: float = 1.0 # TODO CHANGE BACK TO 55 
 var is_dead: bool = false
 
 var did_init: bool = false
@@ -27,12 +27,17 @@ var did_init: bool = false
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var battle_decision_timer: Timer = $BattleDecisionTimer
 
+var lich_attack: PackedScene = preload("res://battle-engine/effects/lich-attack.tscn")
+
+var fireball_left: Node2D
+var fireball_right: Node2D
 
 func _ready() -> void:
+	SoundManager.play("lich_laugh")
 	sprite.reset_amplitude()
 	sprite.reset_speed()
 	battle_decision_timer.wait_time = time_between_decisions
-	_enter_state(State.IDLE)
+	#_enter_state(State.IDLE)
 	did_init = true
 	
 func die():
@@ -92,10 +97,12 @@ func _enter_state(new_state: State) -> void:
 
 	state = new_state
 
+	print("match state")
 	match state:
 		State.IDLE:
 			#print("ENEMY GOING IDLE")
 			battle_decision_timer.start()
+			print("start battle decision timer")
 			sprite.play("idle")
 		State.WIND_UP:
 			sprite.set_amplitude(0)
@@ -106,12 +113,42 @@ func _enter_state(new_state: State) -> void:
 			sprite.set_speed(attack_speed)
 			#print("ENEMY GOING ATTACK")
 			sprite.play("attack")
+			SoundManager.play("lich_growl")
+			
+			#spawn fireballs
+			fireball_left = lich_attack.instantiate()
+			add_child(fireball_left)
+			fireball_left.position = Vector2.ZERO # top left
+			fireball_left.position.x -= 64
+			fireball_left.position.y -= 88
+			fireball_right = lich_attack.instantiate()
+			add_child(fireball_right)
+			#var tex: Texture2D = $AnimatedSprite2D.sprite_frames.get_frame_texture($AnimatedSprite2D.animation, 0)
+			#var width: float = tex.get_size().x
+			#fireball_right.position = Vector2(width, 0.0) 
+			fireball_right.position = Vector2.ZERO # top left
+			fireball_right.position.x += 64
+			fireball_right.position.y -= 88
+			
 			damage_player.emit(attack_damage)
 		State.DEAD:
 			#print("ENEMY GOING DEAD")
 			sprite.play("dead")
+			SoundManager.play("lich_death")
 			# Optional: disable collisions / logic here
 
+
+func cancel_attacks():
+	print("cnacelling attacks")
+	if fireball_left:
+		fireball_left.queue_free()
+		fireball_left = null
+		print("removed left fireball")
+		
+	if fireball_right:
+		fireball_right.queue_free()
+		fireball_right = null
+		print("removed right fireball")
 
 func _update_idle(_delta: float) -> void:
 	# For now, nothing special; you can add patrol logic here later.
@@ -161,7 +198,7 @@ func cleanup(did_die: bool = true):
 	#queue_free() # if we queue_free() we can't reuse for next battle
 
 func _on_battle_decision_timer_timeout() -> void:
-	#print("ENEMY MAKING DECISION")
+	print("LICH MAKING DECISION")
 	_enter_state(State.WIND_UP)
 	
 	

@@ -1,0 +1,103 @@
+[gd_scene format=3 uid="uid://cnh5bhwjdnt2k"]
+
+[ext_resource type="Script" uid="uid://0mc3ghdt120n" path="res://battle-engine/effects/lich_attack.gd" id="1_6njjh"]
+[ext_resource type="Texture2D" uid="uid://bexe6u6r0ihqq" path="res://battle-engine/assets/lich-king/evil-fireball.png" id="1_r5l4l"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6njjh"]
+atlas = ExtResource("1_r5l4l")
+region = Rect2(0, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i2a4s"]
+atlas = ExtResource("1_r5l4l")
+region = Rect2(64, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3ikfr"]
+atlas = ExtResource("1_r5l4l")
+region = Rect2(128, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u31fw"]
+atlas = ExtResource("1_r5l4l")
+region = Rect2(192, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jjh6l"]
+atlas = ExtResource("1_r5l4l")
+region = Rect2(256, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_adwyl"]
+atlas = ExtResource("1_r5l4l")
+region = Rect2(320, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sccgd"]
+atlas = ExtResource("1_r5l4l")
+region = Rect2(384, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0ek6e"]
+atlas = ExtResource("1_r5l4l")
+region = Rect2(448, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_35frh"]
+atlas = ExtResource("1_r5l4l")
+region = Rect2(512, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i3uf5"]
+atlas = ExtResource("1_r5l4l")
+region = Rect2(576, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_83pig"]
+atlas = ExtResource("1_r5l4l")
+region = Rect2(640, 192, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n5sd7"]
+atlas = ExtResource("1_r5l4l")
+region = Rect2(704, 192, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_kp5x0"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6njjh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i2a4s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3ikfr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u31fw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jjh6l")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_adwyl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sccgd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0ek6e")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_35frh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i3uf5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_83pig")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n5sd7")
+}],
+"loop": true,
+"name": &"attack",
+"speed": 5.0
+}]
+
+[node name="LichAttack" type="Node2D" unique_id=1622256251]
+script = ExtResource("1_6njjh")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1883854472]
+sprite_frames = SubResource("SpriteFrames_kp5x0")
+animation = &"attack"

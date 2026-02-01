@@ -27,6 +27,11 @@ var sounds: Dictionary = {  # "hit": preload("res://hit.ogg"), etc.
 	"player_hurt": preload("res://audio/sfx/player-hurt.wav"),
 	"lich_intro_bgm": preload("res://audio/bgm/lich-intro-bgm.ogg"),
 	"lich_loop_bgm": preload("res://audio/bgm/lich-loop-bgm.ogg"),
+	"game_win_bgm": preload("res://audio/bgm/game-win-bgm.wav"),
+	"little_growl": preload("res://audio/bgm/little-growl.wav"),
+	"lich_death": preload("res://audio/bgm/lich-death.wav"),
+	"lich_laugh": preload("res://audio/bgm/lich-laugh.wav"),
+	"lich_growl": preload("res://audio/bgm/lich-growl.wav"),
 } 
 
 var channels: Array[AudioStreamPlayer] = []

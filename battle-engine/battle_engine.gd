@@ -8,8 +8,11 @@ extends Node2D
 @onready var player_sprite: AnimatedSprite2D = $PlayerAttackSprite
 @onready var victory_panel: Panel = $VictoryPanel
 @onready var you_died_panel: Panel = $YouDiedPanel
+@onready var game_win_panel: Panel = $GameWinPanel
+@onready var win_forever_label: Label = $GameWinPanel/ForEverLabel
 @onready var victory_screen_timer: Timer = $VictoryScreenTimer
 @onready var you_died_screen_timer: Timer = $YouDiedTimer
+@onready var game_win_timer: Timer = $GameWinTimer
 @onready var for_now_label: Label = $VictoryPanel/ForNowLabel
 @onready var died_for_now_label: Label = $YouDiedPanel/ForNowLabel
 @onready var died_level_down_label: Label = $YouDiedPanel/LevelDownLabel
@@ -23,6 +26,7 @@ var has_init: bool = false
 var victory: bool = false;
 var victory_timer_count: int = 0
 var you_died_timer_count: int = 0
+var win_timer_count: int = 0
 var player_is_dead: bool = false
 var is_final_boss_battle: bool = false
 var did_final_boss_init: bool = false # hacky bool weee
@@ -45,7 +49,14 @@ func _init_battle(is_final_boss: bool = false):
 		enemy = common_enemy
 	else:
 		print("Ffight the lich!")
-		common_enemy.queue_free()
+		if enemy:
+			print("QUEUE FREE ENEMY")
+			enemy.queue_free() # lich is final boss so kill off existing enemy instance
+			
+		if common_enemy:
+			print("QUEUE FREE COMMON_ENEMY")
+			common_enemy.queue_free()
+			
 		enemy = lich_scene.instantiate()
 		add_child(enemy)
 	
@@ -68,6 +79,7 @@ func _init_battle(is_final_boss: bool = false):
 	attack_button.init()
 	victory_panel.visible = false
 	you_died_panel.visible = false
+	game_win_panel.visible = false
 	process_mode = Node.PROCESS_MODE_INHERIT
 	visible = true
 	#print("enemy health set to " + str(enemy.health))
@@ -121,11 +133,20 @@ func _process(_delta: float) -> void:
 		SoundManager.play("lich_intro_bgm", -3.0)
 		var center := get_viewport_rect().size / 2.0
 		enemy.position.x = center.x
-		enemy.position.y = center.y
+		enemy.position.y = center.y - 24
 		#enemy.enter_battle()
 		enemy_healthbar.set_max_health(enemy.health)
 		enemy_healthbar.set_health(enemy.health)
 		did_final_boss_init = true
+		enemy.enter_battle()
+		enemy.damage_player.connect(_on_enemy_damage_player)
+		enemy.enemy_died.connect(_on_enemy_enemy_died)
+		
+	if did_final_boss_init:
+		# print("try to play lich loop")
+		if !SoundManager.is_playing("lich_intro_bgm") and !SoundManager.is_playing("lich_loop_bgm"):
+			print("playing lich loop")
+			SoundManager.play("lich_loop_bgm", -3.0, true)
 
 
 func _on_enemy_damage_player(amount: int) -> void:
@@ -144,6 +165,9 @@ func _on_enemy_damage_player(amount: int) -> void:
 		battle_status_label.visible = true
 		#print("play block_clang")
 		SoundManager.play("block_clang")
+		
+		if is_final_boss_battle:
+			enemy.cancel_attacks()
 
 
 func _on_player_attack_sprite_damage_enemy() -> void:
@@ -157,11 +181,21 @@ func _on_player_attack_sprite_damage_enemy() -> void:
 
 func _on_enemy_enemy_died() -> void:
 	#print("enemy died ending battle")
-	victory_screen_timer.start()
+	if is_final_boss_battle:
+		try_stop_combat_bgm()
+		print("start game win timer")
+		game_win_timer.start()
+		game_win_panel.visible = true
+		victory_panel.visible = false
+	else:
+		print("start victory screen regular timer")
+		victory_screen_timer.start()
+		victory_panel.visible = true
+
 	level_up_label.visible = false
 	for_now_label.visible = false
-	victory_panel.visible = true
 	you_died_panel.visible = false
+	game_win_panel.visible = false
 	
 	
 func player_died():
@@ -175,6 +209,7 @@ func player_died():
 	for_now_label.visible = false
 	victory_panel.visible = false
 	you_died_panel.visible = true
+	game_win_panel.visible = false
 	
 	
 func try_stop_combat_bgm():
@@ -182,7 +217,13 @@ func try_stop_combat_bgm():
 		SoundManager.fade_out_and_stop("combat_bgm", 3.0)
 	else:
 		SoundManager.fade_out_and_stop("combat_bgm_alt", 3.0)
+		
+	if SoundManager.is_playing("lich_intro_bgm"):
+		SoundManager.stop("lich_intro_bgm")
 
+	if SoundManager.is_playing("lich_loop_bgm"):
+		SoundManager.stop("lich_loop_bgm")
+		
 func _on_victory_screen_timer_timeout() -> void:
 	victory_timer_count += 1
 	#print("victory count: " + str(victory_timer_count))
@@ -227,3 +268,15 @@ func _on_you_died_timer_timeout() -> void:
 			print("End battle")
 			battle_ended_with_player_death.emit()
 			_end_battle()
+
+
+func _on_game_win_timer_timeout() -> void:
+	win_timer_count += 1
+	print("you died timer count: " + str(win_timer_count))
+	
+	#try_stop_combat_bgm()
+	
+	match win_timer_count:
+		1:
+			SoundManager.play("game_win_bgm", 0.0, true)
+			win_forever_label.visible = true
