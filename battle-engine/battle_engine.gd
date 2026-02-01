@@ -141,9 +141,9 @@ func player_died():
 	
 func try_stop_combat_bgm():
 	if which_bgm_to_play == 1:
-		SoundManager.fade_out_and_stop("combat_bgm", 7.0)
+		SoundManager.fade_out_and_stop("combat_bgm", 3.0)
 	else:
-		SoundManager.fade_out_and_stop("combat_bgm_alt", 7.0)
+		SoundManager.fade_out_and_stop("combat_bgm_alt", 3.0)
 
 func _on_victory_screen_timer_timeout() -> void:
 	victory_timer_count += 1

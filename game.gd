@@ -458,4 +458,5 @@ func _on_battle_engine_reset_player() -> void:
 func _on_battle_engine_battle_ended_with_player_death() -> void:
 		if PlayerStats.level > 1:
 			PlayerStats.level -= 1
+		PlayerStats.reset_after_defeat()
 		battle_ended()

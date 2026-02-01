@@ -24,6 +24,11 @@ func gain_heart_pieces(amount: int):
 
 func is_alive() -> bool:
 	return health > 0
+	
+func reset_after_defeat():
+	health = max_health
+	mana = max_mana
+	
 
 # Optional: signal when stats change
 # signal stats_changed()

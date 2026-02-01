@@ -13,13 +13,13 @@ enum State {
 var state: State = State.INITIAL
 var attack_amplitude:float = 16.0
 var attack_speed: float = 6.0
-var time_between_decisions: float = 2.0 # in seconds
+var time_between_decisions: float = 1.5 # in seconds
 
 signal damage_player(amount: int)
 signal enemy_died
 
-var attack_damage: float = 999.0
-var health: float = 4.0
+var attack_damage: float = 9.0
+var health: float = 5.0
 var is_dead: bool = false
 
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D

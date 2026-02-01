@@ -96,7 +96,7 @@ func stop(sound_name: StringName) -> void:
 		if c.playing and c.stream == stream:
 			c.stop()
 
-
+# WARNING: this can have weird side effects on audio channels if you try to set duration more than a few seconds!!!
 func fade_out_and_stop(sound_name: StringName, duration: float = 0.5) -> void:
 	if not sounds.has(sound_name):
 		return
