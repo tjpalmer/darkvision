@@ -566,7 +566,9 @@ layout_mode = 2
 [node name="PovSprite" type="AnimatedSprite2D" parent="Box/Pov" unique_id=693293025]
 scale = Vector2(5, 5)
 sprite_frames = SubResource("SpriteFrames_vqo61")
-animation = &"pov_forward_to_left_A"
+animation = &"pov_forward_to_left_B"
+frame = 7
+frame_progress = 1.0
 centered = false
 
 [node name="Margins" type="MarginContainer" parent="Box" unique_id=1262756766]

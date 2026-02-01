@@ -23,4 +23,4 @@ layout_mode = 2
 size_flags_vertical = 0
 theme_override_fonts/font = ExtResource("2_w8frs")
 theme_override_font_sizes/font_size = 32
-text = "100"
+text = "X"

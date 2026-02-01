@@ -41,7 +41,7 @@ func _on_enemy_damage_player(amount: int) -> void:
 
 func _on_player_attack_sprite_damage_enemy() -> void:
 	print("DAMAGE ENEMY")
-	enemy_healthbar.damage(PlayerStats.attack_damage)
+	enemy_healthbar.damage(PlayerStats.level)
 	if enemy_healthbar.current_health <= 0:
 		print("ENEMY DEDD")
 		enemy.die()

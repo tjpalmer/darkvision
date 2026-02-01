@@ -2,6 +2,8 @@ extends ColorRect
 
 const CELL_NUM := 30
 
+@onready var hud: Control = $Box/Margins/Hud
+
 enum CellSpriteId {
 	FORWARD_TO_FORWARD,     # 0
 	FORWARD_TO_LEFT_A,      # 1
@@ -24,10 +26,11 @@ const SPRITE_ANIMS := [
 	"pov_forward_to_exit"       # 7
 ]
 
+# TODO: Add more enemies to the battle-engine
 const ENEMIES: Array[PackedScene] = [
 	preload("res://scenes/enemies/eye.tscn"),
-	preload("res://scenes/enemies/rat.tscn"),
-	preload("res://scenes/enemies/slime.tscn"),
+	#preload("res://scenes/enemies/rat.tscn"),
+	#preload("res://scenes/enemies/slime.tscn"),
 ]
 
 var game_won: bool = false
@@ -47,9 +50,11 @@ func _ready() -> void:
 	_build_cell_array()
 	current_cell = 0
 	_stop_at_next_cell()
+	#_update_player_stats()
 
 
 func _stop_at_next_cell() -> void:
+	_update_player_stats()
 	var sprite_id: int = cell_array[current_cell]
 	var anim_name: String = SPRITE_ANIMS[sprite_id]
 
@@ -64,6 +69,15 @@ func _stop_at_next_cell() -> void:
 			# But wait until after this frame is done to trigger that.
 			await get_tree().process_frame
 			_try_step_forward()
+
+
+func _update_player_stats():
+	#print("update level")
+	hud.update_level(PlayerStats.level)
+	#print("update health")
+	hud.update_health(PlayerStats.health)
+	#print("update mask pieces")
+	hud.update_mask_pieces(PlayerStats.mask_pieces)
 
 
 ####################
@@ -135,6 +149,7 @@ func _choose_enemy() -> void:
 		remove_child(current_enemy)
 		current_enemy.queue_free()
 		current_enemy = null
+		
 	# Spawn enemies only when non-congested.
 	match pov_sprite.animation:
 		"pov_forward_to_forward", \
@@ -142,7 +157,20 @@ func _choose_enemy() -> void:
 		"pov_forward_to_right_A":
 			pass
 		_:
+			# CHANCE TO SPAWN A CHEST HERE???
+			# Won't spawn if we are moving right up to the wall, but will when we are turning left or right 
+			if pov_sprite.animation != "pov_forward_to_left_B" and pov_sprite.animation != "pov_forward_to_right_B":
+				try_spawn_chest()
+			
 			return
+			
+	# Spawn enemy at % chance
+	var spawn_chance: float = 0.33
+	var rando = randf()
+	
+	if rando > spawn_chance:
+		return
+		
 	# Spawn enemy.
 	var enemy_scene := ENEMIES.pick_random() as PackedScene
 	current_enemy = enemy_scene.instantiate() as Enemy
@@ -153,6 +181,24 @@ func _choose_enemy() -> void:
 	_update_enemy_transform(0.5)
 	add_child(current_enemy)
 
+
+func try_spawn_chest():
+	# Spawn chest at % chance
+	var spawn_chance: float = 0.33
+	var rando = randf()
+	
+	if rando > spawn_chance:
+		return
+		
+	# Spawn enemy.
+	#var chest_scene := ENEMIES.pick_random() as PackedScene
+	#current_enemy = enemy_scene.instantiate() as Enemy
+	# Start at almost first frame position.
+	# This is complicated by starting at frame 0 of our current animation, but
+	# going through frame zero of the next.
+	# TODO Track when the anim changes for 9 steps total of enemy animation?
+	#_update_enemy_transform(0.5)
+	#add_child(current_enemy)
 
 func _update_enemy_transform(frame := pov_sprite.frame as float):
 	if frame == 0:

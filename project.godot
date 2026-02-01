@@ -23,6 +23,8 @@ PlayerStats="*uid://dm456o6ijq4f3"
 
 window/size/viewport_width=480
 window/size/viewport_height=340
+window/size/window_width_override=960
+window/size/window_height_override=680
 window/stretch/mode="viewport"
 
 [editor]

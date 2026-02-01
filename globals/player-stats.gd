@@ -5,10 +5,9 @@ var health: int = 100
 var max_health: int = 100
 var mana: int = 50
 var max_mana: int = 50
-var level: int = 1
+var level: int = 1 # also acts as your damage
 var experience: int = 0
 var mask_pieces: int = 0
-var attack_damage: float = 4.0
 
 # Convenience helpers
 func heal(amount: int):

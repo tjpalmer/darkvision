@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://bxxua8kskjoa8"]
 
+[ext_resource type="Script" uid="uid://cmhh8igfiw2o7" path="res://scenes/hud.gd" id="1_5pdws"]
 [ext_resource type="PackedScene" uid="uid://p4ylr0nyxwrc" path="res://scenes/level.tscn" id="1_uo2fv"]
 [ext_resource type="SpriteFrames" uid="uid://b6wh8ydkavhoy" path="res://scenes/levels/potion.tres" id="2_047uy"]
 [ext_resource type="SpriteFrames" uid="uid://kegigd0vt0sg" path="res://scenes/levels/sword.tres" id="3_5pdws"]
@@ -29,6 +30,19 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_5pdws")
+
+[node name="Move" type="Control" parent="." unique_id=841336640]
+visible = false
+custom_minimum_size = Vector2(40, 40)
+anchors_preset = 0
+offset_left = 440.0
+offset_right = 480.0
+offset_bottom = 340.0
+
+[node name="Sprite" type="AnimatedSprite2D" parent="Move" unique_id=355630824]
+position = Vector2(20, 20)
+sprite_frames = SubResource("SpriteFrames_0i1j5")
 
 [node name="Layout" type="HBoxContainer" parent="." unique_id=1692391501]
 layout_mode = 0
@@ -42,24 +56,42 @@ size_flags_horizontal = 3
 
 [node name="Potion" parent="Layout/Levels" unique_id=1198524218 instance=ExtResource("1_uo2fv")]
 layout_mode = 2
+size_flags_horizontal = 6
 frames = ExtResource("2_047uy")
+
+[node name="Sprite" parent="Layout/Levels/Potion/Icon" parent_id_path=PackedInt32Array(1198524218, 1631411229) index="0" unique_id=763528380]
+sprite_frames = ExtResource("2_047uy")
+
+[node name="Label" parent="Layout/Levels/Potion/Margins" parent_id_path=PackedInt32Array(1198524218, 64592335) index="0" unique_id=1806325939]
+text = "-"
 
 [node name="Sword" parent="Layout/Levels" unique_id=1195478031 instance=ExtResource("1_uo2fv")]
 layout_mode = 2
+size_flags_horizontal = 6
 frames = ExtResource("3_5pdws")
 
+[node name="Sprite" parent="Layout/Levels/Sword/Icon" parent_id_path=PackedInt32Array(1195478031, 1631411229) index="0" unique_id=763528380]
+sprite_frames = ExtResource("3_5pdws")
+
+[node name="Label" parent="Layout/Levels/Sword/Margins" parent_id_path=PackedInt32Array(1195478031, 64592335) index="0" unique_id=1806325939]
+text = "-"
+
 [node name="Heart" parent="Layout/Levels" unique_id=468892750 instance=ExtResource("1_uo2fv")]
+visible = false
 layout_mode = 2
 frames = ExtResource("4_5pdws")
 
 [node name="Treasure" parent="Layout/Levels" unique_id=1716857840 instance=ExtResource("1_uo2fv")]
 layout_mode = 2
+size_flags_horizontal = 6
 frames = ExtResource("5_047uy")
 
-[node name="Move" type="Control" parent="Layout" unique_id=841336640]
-custom_minimum_size = Vector2(40, 40)
-layout_mode = 2
+[node name="Sprite" parent="Layout/Levels/Treasure/Icon" parent_id_path=PackedInt32Array(1716857840, 1631411229) index="0" unique_id=763528380]
+sprite_frames = ExtResource("5_047uy")
 
-[node name="Sprite" type="AnimatedSprite2D" parent="Layout/Move" unique_id=355630824]
-position = Vector2(20, 20)
-sprite_frames = SubResource("SpriteFrames_0i1j5")
+[node name="Label" parent="Layout/Levels/Treasure/Margins" parent_id_path=PackedInt32Array(1716857840, 64592335) index="0" unique_id=1806325939]
+text = "-"
+
+[editable path="Layout/Levels/Potion"]
+[editable path="Layout/Levels/Sword"]
+[editable path="Layout/Levels/Treasure"]
