@@ -7,7 +7,7 @@ var mana: int = 50
 var max_mana: int = 50
 var level: int = 1 # also acts as your damage
 var experience: int = 0
-var mask_pieces: int = 0
+var heart_pieces: int = 0
 
 # Convenience helpers
 func heal(amount: int):
@@ -19,8 +19,8 @@ func take_damage(amount: int):
 func gain_xp(amount: int):
 	experience += amount
 
-func gain_mask_pieces(amount: int):
-	mask_pieces += amount
+func gain_heart_pieces(amount: int):
+	heart_pieces += amount
 
 func is_alive() -> bool:
 	return health > 0

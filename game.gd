@@ -43,9 +43,12 @@ const ENEMIES: Array[PackedScene] = [
 	#preload("res://scenes/enemies/slime.tscn"),
 ]
 
+const CHEST_SCENE: PackedScene = preload("res://scenes/treasure-chest/treasure-chest.tscn")
+
 var game_won: bool = false
 var current_cell: int = 0
 var current_enemy: Enemy = null
+var current_chest: Node2D = null
 var cell_array: Array[int] = []
 
 var is_moving: bool = false
@@ -53,8 +56,8 @@ var current_action: String = ""  # "forward", "turn_left", "turn_right"
 
 var enemy_is_present: bool = false
 
-var treasure_spawn_chance: float = 0.33
-var enemy_spawn_chance: float = 0.33
+var treasure_spawn_chance: float = 1.0
+var enemy_spawn_chance: float = 0.0
 
 @onready var pov_sprite: AnimatedSprite2D = $Box/Pov/PovSprite
 # Optional background:
@@ -67,6 +70,13 @@ func _ready() -> void:
 	_stop_at_next_cell()
 	#_update_player_stats()
 
+
+
+func _on_player_gain_hearts(hearts: int):
+	PlayerStats.heart_pieces += hearts
+	_update_player_stats()
+	# Your handler code here
+	
 
 func _stop_at_next_cell() -> void:
 	if is_event_happening:
@@ -96,7 +106,7 @@ func _update_player_stats():
 	#print("update health")
 	hud.update_health(PlayerStats.health)
 	#print("update mask pieces")
-	hud.update_mask_pieces(PlayerStats.mask_pieces)
+	hud.update_hearts(PlayerStats.heart_pieces)
 
 
 ####################
@@ -225,16 +235,13 @@ func try_spawn_chest():
 	var rando = randf()
 	if rando > treasure_spawn_chance:
 		return
-		
-	# Spawn enemy.
-	#var chest_scene := ENEMIES.pick_random() as PackedScene
-	#current_enemy = enemy_scene.instantiate() as Enemy
-	# Start at almost first frame position.
-	# This is complicated by starting at frame 0 of our current animation, but
-	# going through frame zero of the next.
-	# TODO Track when the anim changes for 9 steps total of enemy animation?
-	#_update_enemy_transform(0.5)
-	#add_child(current_enemy)
+	
+	# Spawn chest
+	current_chest = CHEST_SCENE.instantiate()
+	print("SPAWNED CHEST")
+	current_chest.position = Vector2(get_viewport_rect().size.x / 2, get_viewport_rect().size.y * 2 / 3)
+	current_chest.player_gain_hearts.connect(_on_player_gain_hearts)
+	add_child(current_chest)
 
 func _update_enemy_transform(frame := pov_sprite.frame as float):
 	if is_event_happening:

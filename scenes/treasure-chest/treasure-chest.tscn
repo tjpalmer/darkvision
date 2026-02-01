@@ -1,0 +1,41 @@
+[gd_scene format=3 uid="uid://bq63v8hgbu4ff"]
+
+[ext_resource type="Texture2D" uid="uid://by17s7k2u3kuj" path="res://sprites/support/treasure.webp" id="1_0s4uc"]
+[ext_resource type="Script" uid="uid://ubdxqg0j0xu" path="res://scenes/treasure-chest/treasure_chest.gd" id="1_eoime"]
+[ext_resource type="Texture2D" uid="uid://di8s0am3ax6nc" path="res://sprites/support/heart.webp" id="1_l7yof"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l7yof"]
+atlas = ExtResource("1_0s4uc")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eoime"]
+atlas = ExtResource("1_0s4uc")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_v7fbl"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l7yof")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eoime")
+}],
+"loop": false,
+"name": &"open",
+"speed": 1.0
+}]
+
+[node name="TreasureChest" type="Node2D" unique_id=1472803642]
+scale = Vector2(1.5, 1.5)
+script = ExtResource("1_eoime")
+
+[node name="Chest" type="AnimatedSprite2D" parent="." unique_id=775706374]
+sprite_frames = SubResource("SpriteFrames_v7fbl")
+animation = &"open"
+
+[node name="MaskPiece" type="Sprite2D" parent="." unique_id=519065962]
+position = Vector2(0, -16)
+texture = ExtResource("1_l7yof")
+
+[connection signal="animation_finished" from="Chest" to="." method="_on_chest_animation_finished"]

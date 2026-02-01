@@ -77,11 +77,19 @@ sprite_frames = ExtResource("3_5pdws")
 text = "-"
 
 [node name="Heart" parent="Layout/Levels" unique_id=468892750 instance=ExtResource("1_uo2fv")]
-visible = false
 layout_mode = 2
+size_flags_horizontal = 6
 frames = ExtResource("4_5pdws")
 
+[node name="Sprite" parent="Layout/Levels/Heart/Icon" parent_id_path=PackedInt32Array(468892750, 1631411229) index="0" unique_id=763528380]
+sprite_frames = ExtResource("4_5pdws")
+
+[node name="Label" parent="Layout/Levels/Heart/Margins" parent_id_path=PackedInt32Array(468892750, 64592335) index="0" unique_id=1806325939]
+text = "-
+"
+
 [node name="Treasure" parent="Layout/Levels" unique_id=1716857840 instance=ExtResource("1_uo2fv")]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 6
 frames = ExtResource("5_047uy")
@@ -94,4 +102,5 @@ text = "-"
 
 [editable path="Layout/Levels/Potion"]
 [editable path="Layout/Levels/Sword"]
+[editable path="Layout/Levels/Heart"]
 [editable path="Layout/Levels/Treasure"]
