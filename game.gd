@@ -312,13 +312,12 @@ func trigger_battle():
 	
 func battle_ended():
 	if !is_event_happening:
-		#print("battle_ended but is_event_happening = " + str(is_event_happening))
+		print("battle_ended but is_event_happening = " + str(is_event_happening))
 		return
 		
 	move_button_control.visible = true
 	pulsing_light_ring.visible = true
 	#move_button_control.process = PROCESS_MODE_INHERIT
-	PlayerStats.level += 1
 	world_box.visible = true
 	world_box.process_mode = Node.PROCESS_MODE_INHERIT
 	is_event_happening = false
@@ -440,6 +439,7 @@ func _build_cell_array() -> void:
 
 
 func _on_battle_engine_battle_ended() -> void:
+	PlayerStats.level += 1
 	battle_ended()
 
 
@@ -449,3 +449,13 @@ func _on_move_button_button_up() -> void:
 	#print("move button pressed")
 	if !is_moving:
 		_try_press_on()
+
+
+func _on_battle_engine_reset_player() -> void:
+	pass # Replace with function body.
+
+
+func _on_battle_engine_battle_ended_with_player_death() -> void:
+		if PlayerStats.level > 1:
+			PlayerStats.level -= 1
+		battle_ended()

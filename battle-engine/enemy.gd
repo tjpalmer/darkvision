@@ -18,7 +18,7 @@ var time_between_decisions: float = 2.0 # in seconds
 signal damage_player(amount: int)
 signal enemy_died
 
-var attack_damage: float = 9.0
+var attack_damage: float = 999.0
 var health: float = 4.0
 var is_dead: bool = false
 
@@ -143,9 +143,11 @@ func _update_dead(_delta: float) -> void:
 	tween.tween_callback(cleanup)
 
 
-func cleanup():
+func cleanup(did_die: bool = true):
 	#print("cleanup!")
-	enemy_died.emit()
+	if did_die:
+		enemy_died.emit()
+		
 	_enter_state(State.WAITING_FOR_BATTLE)
 	#queue_free() # if we queue_free() we can't reuse for next battle
 

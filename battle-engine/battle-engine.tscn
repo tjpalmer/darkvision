@@ -215,7 +215,6 @@ theme_override_font_sizes/font_size = 22
 text = "ENEMY HP"
 
 [node name="VictoryPanel" type="Panel" parent="." unique_id=1678412722]
-visible = false
 offset_right = 480.0
 offset_bottom = 256.0
 scale = Vector2(1, 1.3199999)
@@ -249,9 +248,48 @@ offset_right = 334.0
 offset_bottom = 211.63638
 theme_override_fonts/font = ExtResource("3_vvyhw")
 theme_override_font_sizes/font_size = 32
-text = "LEVEL UP +1"
+text = "LEVEL UP + 1"
+
+[node name="YouDiedPanel" type="Panel" parent="." unique_id=1852331047]
+offset_right = 480.0
+offset_bottom = 256.0
+scale = Vector2(1, 1.3199999)
+theme_override_styles/panel = SubResource("StyleBoxFlat_pv81d")
+
+[node name="YouDiedLabel" type="Label" parent="YouDiedPanel" unique_id=269360205]
+layout_mode = 0
+offset_left = 160.0
+offset_top = 48.48485
+offset_right = 449.0
+offset_bottom = 96.48485
+theme_override_fonts/font = ExtResource("3_vvyhw")
+theme_override_font_sizes/font_size = 48
+text = "DEFEAT..."
+
+[node name="ForNowLabel" type="Label" parent="YouDiedPanel" unique_id=1689389271]
+layout_mode = 0
+offset_left = 264.0
+offset_top = 115.15151
+offset_right = 446.0
+offset_bottom = 163.1515
+theme_override_fonts/font = ExtResource("3_vvyhw")
+theme_override_font_sizes/font_size = 32
+text = "FOR NOW"
+
+[node name="LevelDownLabel" type="Label" parent="YouDiedPanel" unique_id=853155840]
+layout_mode = 0
+offset_left = 152.0
+offset_top = 163.63637
+offset_right = 334.0
+offset_bottom = 211.63637
+theme_override_fonts/font = ExtResource("3_vvyhw")
+theme_override_font_sizes/font_size = 32
+text = "LEVEL LOST - 1"
 
 [node name="VictoryScreenTimer" type="Timer" parent="." unique_id=7332980]
+one_shot = true
+
+[node name="YouDiedTimer" type="Timer" parent="." unique_id=1825673423]
 one_shot = true
 
 [node name="BattleStatusLabel" type="Label" parent="." unique_id=1395021668]
@@ -272,4 +310,5 @@ one_shot = true
 [connection signal="animation_finished" from="PlayerAttackSprite" to="PlayerAttackSprite" method="_on_animation_finished"]
 [connection signal="damage_enemy" from="PlayerAttackSprite" to="." method="_on_player_attack_sprite_damage_enemy"]
 [connection signal="timeout" from="VictoryScreenTimer" to="." method="_on_victory_screen_timer_timeout"]
+[connection signal="timeout" from="YouDiedTimer" to="." method="_on_you_died_timer_timeout"]
 [connection signal="timeout" from="BattleStatusTimer" to="." method="_on_battle_status_timer_timeout"]
