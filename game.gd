@@ -58,6 +58,13 @@ func _stop_at_next_cell() -> void:
 	pov_sprite.stop()
 	is_moving = false
 
+	# Go through both rounds of turning all at once.
+	match sprite_id:
+		CellSpriteId.LEFT_TO_FORWARD, CellSpriteId.RIGHT_TO_FORWARD:
+			# But wait until after this frame is done to trigger that.
+			await get_tree().process_frame
+			_try_step_forward()
+
 
 ####################
 # BEGIN MOVEMENT SECTION #
